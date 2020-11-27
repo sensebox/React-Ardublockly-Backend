@@ -1,41 +1,51 @@
+// jshint esversion: 8
+// jshint node: true
+"use strict";
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var api = express();
 
-var app = express();
+//reads in configuration from a .env file
+require('dotenv').config();
+
+api.use(cors());
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+api.set('views', path.join(__dirname, 'views'));
+api.set('view engine', 'jade');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+api.use(logger('dev'));
+api.use(express.json());
+api.use(express.urlencoded({ extended: false }));
+api.use(cookieParser());
+api.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+var tutorialRouter = require('./routes/tutorial/index');
+var usersRouter = require('./routes/users');
+
+api.use('/tutorial', tutorialRouter);
+api.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+api.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+api.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
-module.exports = app;
+module.exports = api;
