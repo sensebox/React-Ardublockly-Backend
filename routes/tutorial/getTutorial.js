@@ -11,7 +11,7 @@ const getTutorial = async function(req, res){
   try{
     var id = req.params.tutorialId;
     var result = await Tutorial.findById(id)
-                               .populate('requirementts', {title: 1});
+                               .populate({path: 'steps.requirements', options: {select: 'title'}});
     return res.status(200).send({
       message: 'Tutorial found successfully.',
       tutorial: result
