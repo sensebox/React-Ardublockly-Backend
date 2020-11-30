@@ -13,13 +13,16 @@ const postTutorial = async function(req, res){
   }
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
-  console.log(req.body);
   try{
     const body = {
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
       steps: req.body.steps
     };
+    // ensure that the requirement is not related to the tutorial itself
+    if(body.steps[0].requirements){
+      body.steps[0].requirements = body.steps[0].requirements.filter(requirement => requirement !== body._id);
+    }
     // storing existing images in mongoDB
     req.files.forEach((file, i) => {
       var index = parseInt(file.fieldname.replace('steps[','').replace('][media][picture]'));
