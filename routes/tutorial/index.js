@@ -10,6 +10,9 @@ const { upload } = require('../../helper/imageUpload');
 TutorialRouter.route('/')
   .post(upload.any(), require('./postTutorial').postTutorial);
 
+TutorialRouter.route('/:tutorialId')
+  .put(upload.any(), require('./putTutorial').putTutorial);
+
 TutorialRouter.route('/')
   .get(require('./getTutorials').getTutorials);
 
