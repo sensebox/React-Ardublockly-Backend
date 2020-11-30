@@ -22,9 +22,11 @@ api.set('view engine', 'jade');
 
 api.use(logger('dev'));
 api.use(express.json());
-api.use(express.urlencoded({ extended: false }));
+// api.use(express.urlencoded({ extended: true, limit: '10mb' }));
 api.use(cookieParser());
-api.use(express.static(path.join(__dirname, 'public')));
+
+// uploaded images
+api.use('/media', express.static(path.join(__dirname, 'upload')));
 
 var tutorialRouter = require('./routes/tutorial/index');
 var usersRouter = require('./routes/users');
