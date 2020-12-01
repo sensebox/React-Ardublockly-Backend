@@ -19,10 +19,6 @@ const postTutorial = async function(req, res){
       title: req.body.title,
       steps: req.body.steps
     };
-    // ensure that the requirement is not related to the tutorial itself
-    if(body.steps[0].requirements){
-      body.steps[0].requirements = body.steps[0].requirements.filter(requirement => requirement !== body._id);
-    }
     // storing existing images in mongoDB
     req.files.forEach((file, i) => {
       var index = parseInt(file.fieldname.replace('steps[','').replace('][media][picture]'));
@@ -36,6 +32,7 @@ const postTutorial = async function(req, res){
     });
     console.log(body);
     const tutorial = new Tutorial(body);
+    console.log(tutorial);
     const savedTutorial = await tutorial.save();
     return res.status(201).send({
       message: 'Tutorial is successfully created.',

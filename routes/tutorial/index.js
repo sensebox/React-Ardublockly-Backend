@@ -13,6 +13,9 @@ TutorialRouter.route('/')
 TutorialRouter.route('/:tutorialId')
   .put(upload.any(), require('./putTutorial').putTutorial);
 
+TutorialRouter.route('/:tutorialId')
+  .delete(require('./deleteTutorial').deleteTutorial);
+
 TutorialRouter.route('/')
   .get(require('./getTutorials').getTutorials);
 
