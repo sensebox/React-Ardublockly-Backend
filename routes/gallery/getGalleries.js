@@ -5,15 +5,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Share = require('../../models/share');
+const Gallery = require('../../models/gallery');
 
-const getShare = async function(req, res){
+const getGalleries = async function(req, res){
   try{
-    var id = req.params.shareId;
-    var result = await Share.findOne({link: id});
+    var result = await Gallery.find({});
     return res.status(200).send({
-      message: 'Sharing-Content found successfully.',
-      content: result
+      message: 'Galleries found successfully.',
+      galleries: result
     });
   }
   catch(err){
@@ -22,5 +21,5 @@ const getShare = async function(req, res){
 };
 
 module.exports = {
-  getShare
+  getGalleries
 };

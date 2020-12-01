@@ -48,9 +48,9 @@ const putTutorial = async function(req, res){
           };
         });
       }
-      var tutorial = await Tutorial.findOneAndUpdate({_id: oldTutorial._id}, updatedTutorial, {upsert: true});
+      var tutorial = await Tutorial.findOneAndUpdate({_id: oldTutorial._id}, updatedTutorial, {upsert: true, new: true});
       return res.status(200).send({
-        message: 'Tutoroal is updated successfully.',
+        message: 'Tutorial is updated successfully.',
         tutorial: tutorial
       });
     }

@@ -12,7 +12,6 @@ const postShare = async function(req, res){
   // if(error) return res.status(422).send({message: error.details[0].message});
   try{
     const body = {
-      _id: req.body._id,
       name: req.body.name,
       xml: req.body.xml
     };
