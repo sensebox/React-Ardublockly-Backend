@@ -19,9 +19,9 @@ const connectMongoDB = async function(cb) {
     console.log(chalk.green('Connected to MongoDB (databasename: "' + db.connections[0].name + '") on host "' + db.connections[0].host + '" and on port "' + db.connections[0].port + '""'));
     cb();
   }).catch(async err => {
-    console.log(chalk.red('Connection to '+'mongodb://mongo/'+process.env.MONGO_DBNAME+' failed, try to connect to '+'mongodb://localhost:27017/itemdb'));
+    console.log(chalk.red('Connection to '+'mongodb://mongo/'+process.env.MONGO_DBNAME+' failed, try to connect to '+'mongodb://localhost:27017/'+process.env.MONGO_DBNAME));
     // set up "local" mongoose connection
-    await mongoose.connect(`mongodb://${mongoUsername}:${mongoPassword}@localhost/blockly`, {
+    await mongoose.connect(`mongodb://${mongoUsername}:${mongoPassword}@localhost:27017/${process.env.MONGO_DBNAME}`, {
       authSource: 'test', // db where user is stored, command in mongo-shell: 'show users'
       useNewUrlParser: true,
       useCreateIndex: true,
