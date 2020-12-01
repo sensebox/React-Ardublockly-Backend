@@ -11,7 +11,7 @@ const Tutorial = require('../../models/tutorial');
 
 
 const deleteTutorial = async function(req, res){
-  // try{
+  try{
     var tutorial = await Tutorial.findById(req.params.tutorialId);
     if(tutorial){
       await Tutorial.deleteOne({_id: req.params.tutorialId});
@@ -41,10 +41,10 @@ const deleteTutorial = async function(req, res){
     return res.status(404).send({
       message: 'Tutorial not found.',
     });
-  // }
-  // catch(err){
-  //   return res.status(500).send(err);
-  // }
+  }
+  catch(err){
+    return res.status(500).send(err);
+  }
 };
 
 module.exports = {

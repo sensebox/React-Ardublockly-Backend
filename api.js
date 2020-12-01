@@ -30,9 +30,11 @@ api.use('/media', express.static(path.join(__dirname, 'upload')));
 
 var tutorialRouter = require('./routes/tutorial/index');
 var shareRouter = require('./routes/share/index');
+var galleryRouter = require('./routes/gallery/index');
 
 api.use('/tutorial', tutorialRouter);
 api.use('/share', shareRouter);
+api.use('/gallery', galleryRouter);
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {

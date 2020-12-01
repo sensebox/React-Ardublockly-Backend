@@ -3,14 +3,16 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const { createId } = require('mnemonic-id');
 
 const ShareSchema = new mongoose.Schema({
-  _id: {
+  link: {
     type: String,
     required: true,
     unique: true,
     minlength: 10,
-    maxlength: 10
+    maxlength: 10,
+    default: createId(10)
   },
   name: {
     type: String,
