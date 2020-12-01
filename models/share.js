@@ -5,7 +5,7 @@
 const mongoose = require('mongoose');
 
 const ShareSchema = new mongoose.Schema({
-  _id: {
+  id: {
     type: String,
     required: true,
     unique: true,
@@ -20,7 +20,7 @@ const ShareSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-},{
+}, {
   timestamps: true
 });
 
