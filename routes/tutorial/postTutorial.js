@@ -30,9 +30,7 @@ const postTutorial = async function(req, res){
         originalName: file.originalname
       };
     });
-    console.log(body);
     const tutorial = new Tutorial(body);
-    console.log(tutorial);
     const savedTutorial = await tutorial.save();
     return res.status(201).send({
       message: 'Tutorial is successfully created.',
