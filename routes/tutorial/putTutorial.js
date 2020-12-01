@@ -19,6 +19,10 @@ const putTutorial = async function(req, res){
       var updatedTutorial = {};
       updatedTutorial.title = req.body.title || oldTutorial.title;
       updatedTutorial.steps = req.body.steps || oldTutorial.steps;
+      // ensure that the requirement is not related to the tutorial itself
+      if(updatedTutorial.steps[0].requirements){
+        updatedTutorial.steps[0].requirements = updatedTutorial.steps[0].requirements.filter(requirement => requirement !== updatedTutorial._id);
+      }
       // storing new images in mongoDB
       if(req.files){
         req.files.forEach((file, i) => {
@@ -27,12 +31,12 @@ const putTutorial = async function(req, res){
             // deleting images that are no longer part of the tutorial
             var imagepath = oldTutorial.steps[index].media.picture.path;
             fs.unlink(path.join(__dirname, '..', '..', 'upload', imagepath), function(err) {
-              if(err && err.code == 'ENOENT') {
+              // if(err && err.code == 'ENOENT') {
                 // file doens't exist
-              } else if (err) {
+              // } else if (err) {
                 // other errors, e.g. maybe we don't have enough permission
-              } else {
-              }
+              // } else {
+              // }
             });
           }
           updatedTutorial.steps[index].media = {};
