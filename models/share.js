@@ -3,7 +3,6 @@
 "use strict";
 
 const mongoose = require('mongoose');
-const { createId } = require('mnemonic-id');
 
 const ShareSchema = new mongoose.Schema({
   link: {
@@ -11,8 +10,7 @@ const ShareSchema = new mongoose.Schema({
     required: true,
     unique: true,
     minlength: 10,
-    maxlength: 10,
-    default: createId(10)
+    maxlength: 10
   },
   name: {
     type: String,
@@ -21,6 +19,11 @@ const ShareSchema = new mongoose.Schema({
   xml: {
     type: String,
     required: true
+  },
+  expiresAt: {
+    type: Date,
+    required: true,
+    expires: Number(process.env.SHARE_EXPIRES_IN)
   }
 },{
   timestamps: true
