@@ -29,10 +29,10 @@ api.use(cookieParser());
 api.use('/media', express.static(path.join(__dirname, 'upload')));
 
 var tutorialRouter = require('./routes/tutorial/index');
-var usersRouter = require('./routes/users');
+var shareRouter = require('./routes/share/index');
 
 api.use('/tutorial', tutorialRouter);
-api.use('/users', usersRouter);
+api.use('/share', shareRouter);
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {
