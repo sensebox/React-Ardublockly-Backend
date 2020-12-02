@@ -12,7 +12,7 @@ const ShareSchema = new mongoose.Schema({
     minlength: 10,
     maxlength: 10
   },
-  name: {
+  title: {
     type: String,
     required: true
   },
