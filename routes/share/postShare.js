@@ -15,7 +15,7 @@ const postShare = async function(req, res){
   try{
     const body = {
       link: createId(10),
-      name: req.body.name,
+      title: req.body.name,
       xml: req.body.xml,
       expiresAt: moment.utc().add(Number(process.env.SHARE_EXPIRES_IN),'seconds').toDate(),
     };
