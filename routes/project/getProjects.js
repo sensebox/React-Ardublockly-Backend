@@ -9,7 +9,7 @@ const Project = require('../../models/project');
 
 const getProjects = async function(req, res){
   try{
-    var result = await Project.find({creator: req.user.me.email});
+    var result = await Project.find({creator: req.user.email});
     return res.status(200).send({
       message: 'Projects found successfully.',
       projects: result

@@ -11,7 +11,7 @@ const Project = require('../../models/project');
 const deleteProject = async function(req, res){
   try{
     var result = await Project.findById(req.params.projectId);
-    var owner = req.user.me.email;
+    var owner = req.user.email;
     if(owner === result.creator){
       var project = await Project.deleteOne({_id: req.params.projectId});
       if(project && project.deletedCount > 0){
