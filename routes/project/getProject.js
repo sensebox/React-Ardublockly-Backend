@@ -11,7 +11,7 @@ const getProject = async function(req, res){
   try{
     var id = req.params.projectId;
     var result = await Project.findById(id);
-    var owner = req.user.me.email;
+    var owner = req.user.email;
     if(owner === result.creator){
       return res.status(200).send({
         message: 'Project found successfully.',

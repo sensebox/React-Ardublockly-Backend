@@ -13,7 +13,7 @@ const putProject = async function(req, res){
   // if(error) return res.status(422).send({message: error.details[0].message});
   try {
     var oldProject = await Project.findOne({_id: req.params.projectId});
-    var owner = req.user.me.email;
+    var owner = req.user.email;
     if(owner === oldProject.creator){
       if(oldProject){
         var updatedProject = {};
