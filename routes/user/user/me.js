@@ -8,15 +8,16 @@ const request = require('request');
 
 const User = require('../../../models/user');
 
-const login = async function(req, res){
+const me = async function(req, res){
   try{
+    console.log(req.header('authorization'));
     var options = {
-      body: JSON.stringify(req.body),
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': req.header('authorization')
       }
     };
-    request.post('https://api.opensensemap.org/users/sign-in', options)
+    request.get('https://api.opensensemap.org/users/me', options)
       .on('response', function(response) {
         // concatenate updates from datastream
         var body = '';
@@ -26,21 +27,17 @@ const login = async function(req, res){
         response.on('end', async function(){
           if(response.statusCode !== 200){
             return res.status(403).send({
-              message: 'User and or password not valid.',
+              message: 'Invalid JWT. Please sign sign in.',
             });
           }
-          // check if user already exists in blockly-user-db
           body = JSON.parse(body);
-          var user = await User.findOneAndUpdate({email: body.data.user.email}, // query
-                                            {$setOnInsert: {email: body.data.user.email}}, // update if not exist
-                                            {upsert: true}); // options
-          body.data.user.blocklyRole = user.role;
-          body.data.user.badge = user.badge;
+          console.log(body);
+          var user = await User.findOne({email: body.data.me.email});
+          body.data.me.blocklyRole = user.role;
+          body.data.me.badge = user.badge;
           return res.status(200).send({
-            message: 'Successfully signed in.',
-            user: body.data.user,
-            token: body.token,
-            refreshToken: body.refreshToken
+            message: 'User found successfully.',
+            user: body.data.me
           });
         });
       })
@@ -54,5 +51,5 @@ const login = async function(req, res){
 };
 
 module.exports = {
-  login
+  me
 };
