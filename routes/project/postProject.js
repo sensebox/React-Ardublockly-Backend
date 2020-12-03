@@ -15,8 +15,7 @@ const postProject = async function(req, res){
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
       xml: req.body.xml,
-      // TODO: use signed in user
-      creator: new mongoose.Types.ObjectId(),
+      creator: req.user.me.email,
     };
     const project = new Project(body);
     const savedProject = await project.save();

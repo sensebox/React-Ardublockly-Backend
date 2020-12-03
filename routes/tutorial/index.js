@@ -5,7 +5,7 @@
 var express = require('express');
 var TutorialRouter = express.Router();
 
-const { userAuthorization } = require('../helper/userAuthorization');
+const { userAuthorization } = require('../../helper/userAuthorization');
 const { upload } = require('../../helper/imageUpload');
 
 TutorialRouter.route('/')

@@ -26,7 +26,7 @@ const userAuthorization = function(req, res, next){
             message: 'Unauthorized',
           });
         }
-        req.user = JSON.parse(body);
+        req.user = JSON.parse(body).data;
         next();
       });
     })
