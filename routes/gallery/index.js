@@ -5,7 +5,7 @@
 var express = require('express');
 var GalleryRouter = express.Router();
 
-const { userAuthorization } = require('../helper/userAuthorization');
+const { userAuthorization } = require('../../helper/userAuthorization');
 
 GalleryRouter.route('/')
   .post(userAuthorization, require('./postGallery').postGallery);

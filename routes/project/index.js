@@ -5,7 +5,7 @@
 var express = require('express');
 var ProjectRouter = express.Router();
 
-const { userAuthorization } = require('../helper/userAuthorization');
+const { userAuthorization } = require('../../helper/userAuthorization');
 
 ProjectRouter.route('/')
   .post(userAuthorization, require('./postProject').postProject);
