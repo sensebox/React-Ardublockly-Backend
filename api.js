@@ -32,11 +32,13 @@ var tutorialRouter = require('./routes/tutorial/index');
 var shareRouter = require('./routes/share/index');
 var galleryRouter = require('./routes/gallery/index');
 var projectRouter = require('./routes/project/index');
+var userRouter = require('./routes/user/index');
 
 api.use('/tutorial', tutorialRouter);
 api.use('/share', shareRouter);
 api.use('/gallery', galleryRouter);
 api.use('/project', projectRouter);
+api.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {
