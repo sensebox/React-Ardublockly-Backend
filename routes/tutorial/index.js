@@ -5,16 +5,17 @@
 var express = require('express');
 var TutorialRouter = express.Router();
 
+const { userAuthorization } = require('../helper/userAuthorization');
 const { upload } = require('../../helper/imageUpload');
 
 TutorialRouter.route('/')
-  .post(upload.any(), require('./postTutorial').postTutorial);
+  .post(userAuthorization, upload.any(), require('./postTutorial').postTutorial);
 
 TutorialRouter.route('/:tutorialId')
-  .put(upload.any(), require('./putTutorial').putTutorial);
+  .put(userAuthorization, upload.any(), require('./putTutorial').putTutorial);
 
 TutorialRouter.route('/:tutorialId')
-  .delete(require('./deleteTutorial').deleteTutorial);
+  .delete(userAuthorization, require('./deleteTutorial').deleteTutorial);
 
 TutorialRouter.route('/')
   .get(require('./getTutorials').getTutorials);

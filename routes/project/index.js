@@ -5,19 +5,21 @@
 var express = require('express');
 var ProjectRouter = express.Router();
 
-ProjectRouter.route('/')
-  .post(require('./postProject').postProject);
-
-ProjectRouter.route('/:projectId')
-  .put(require('./putProject').putProject);
-
-ProjectRouter.route('/:projectId')
-  .delete(require('./deleteProject').deleteProject);
+const { userAuthorization } = require('../helper/userAuthorization');
 
 ProjectRouter.route('/')
-  .get(require('./getProjects').getProjects);
+  .post(userAuthorization, require('./postProject').postProject);
 
 ProjectRouter.route('/:projectId')
-  .get(require('./getProject').getProject);
+  .put(userAuthorization, require('./putProject').putProject);
+
+ProjectRouter.route('/:projectId')
+  .delete(userAuthorization, require('./deleteProject').deleteProject);
+
+ProjectRouter.route('/')
+  .get(userAuthorization, require('./getProjects').getProjects);
+
+ProjectRouter.route('/:projectId')
+  .get(userAuthorization, require('./getProject').getProject);
 
 module.exports = ProjectRouter;

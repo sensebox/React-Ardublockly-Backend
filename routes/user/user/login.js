@@ -8,7 +8,7 @@ const request = require('request');
 
 const User = require('../../../models/user');
 
-const login = async function(req, res){
+const login = function(req, res){
   try{
     var options = {
       body: JSON.stringify(req.body),
