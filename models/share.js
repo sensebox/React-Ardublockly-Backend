@@ -5,18 +5,7 @@
 const mongoose = require('mongoose');
 
 const ShareSchema = new mongoose.Schema({
-  link: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: 10,
-    maxlength: 10
-  },
   title: {
-    type: String,
-    required: true
-  },
-  xml: {
     type: String,
     required: true
   },
@@ -24,6 +13,14 @@ const ShareSchema = new mongoose.Schema({
     type: Date,
     required: true,
     expires: Number(process.env.SHARE_EXPIRES_IN)
+  },
+  // either XML or Id to the project, from which the XML can be extracted
+  xml: {
+    type: String
+  },
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project',
   }
 },{
   timestamps: true
