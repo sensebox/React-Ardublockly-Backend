@@ -6,7 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const Project = require('../../models/project');
-
+const Share = require('../../models/share');
 
 const deleteProject = async function(req, res){
   try{
@@ -14,6 +14,7 @@ const deleteProject = async function(req, res){
     var owner = req.user.email;
     if(owner === result.creator){
       var project = await Project.deleteOne({_id: req.params.projectId});
+      var share = await Share.deleteOne({project: req.params.projectId});
       if(project && project.deletedCount > 0){
         return res.status(200).send({
           message: 'Project deleted successfully.',

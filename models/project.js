@@ -5,6 +5,11 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Share',
+    required: true
+  },
   title: {
     type: String,
     required: true
