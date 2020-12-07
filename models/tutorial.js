@@ -57,7 +57,7 @@ const StepSchema = new mongoose.Schema({
 
 const TutorialSchema = new mongoose.Schema({
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },

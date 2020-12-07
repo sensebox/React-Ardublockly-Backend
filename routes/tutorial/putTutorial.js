@@ -8,12 +8,13 @@ const fs = require('fs');
 const path = require('path');
 
 const Tutorial = require('../../models/tutorial');
+const User = require('../../models/user');
 
 
 const putTutorial = async function(req, res){
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
-  try {
+  // try {
     var oldTutorial = await Tutorial.findOne({_id: req.params.tutorialId});
     if(oldTutorial){
       var user = await User.findOne({email: req.user.email});
@@ -68,10 +69,10 @@ const putTutorial = async function(req, res){
         message: 'Tutorial not found.',
       });
     }
-  }
-  catch(err){
-    return res.status(500).send(err);
-  }
+  // }
+  // catch(err){
+  //   return res.status(500).send(err);
+  // }
 };
 
 module.exports = {
