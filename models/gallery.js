@@ -14,7 +14,7 @@ const GallerySchema = new mongoose.Schema({
     required: true
   },
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },

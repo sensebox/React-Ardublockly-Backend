@@ -24,7 +24,7 @@ const postTutorial = async function(req, res){
         steps: req.body.steps
       };
       // storing existing images in mongoDB
-      req.files.forEach((file, i) => {
+      req.files && req.files.forEach((file, i) => {
         var index = parseInt(file.fieldname.replace('steps[','').replace('][media][picture]'));
         body.steps[index].media = {};
         body.steps[index].media.picture = {
