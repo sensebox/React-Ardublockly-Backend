@@ -14,12 +14,12 @@ const User = require('../../models/user');
 const putTutorial = async function(req, res){
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
-  // try {
+  try {
     var oldTutorial = await Tutorial.findOne({_id: req.params.tutorialId});
     if(oldTutorial){
       var user = await User.findOne({email: req.user.email});
       var owner = req.user.email;
-      if(owner === oldTutorial.creator || user.role !== 'user'){
+      if(owner === oldTutorial.creator && user.role !== 'user'){
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
@@ -69,10 +69,10 @@ const putTutorial = async function(req, res){
         message: 'Tutorial not found.',
       });
     }
-  // }
-  // catch(err){
-  //   return res.status(500).send(err);
-  // }
+  }
+  catch(err){
+    return res.status(500).send(err);
+  }
 };
 
 module.exports = {
