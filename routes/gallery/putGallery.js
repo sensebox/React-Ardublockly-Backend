@@ -17,7 +17,7 @@ const putGallery = async function(req, res){
     if(oldGallery){
       var user = await User.findOne({email: req.user.email});
       var owner = req.user.email;
-      if(owner === oldGallery.creator && user.role !== 'user'){
+      if(owner === oldGallery.creator){
         var updatedGallery = {};
         updatedGallery.title = req.body.title || oldGallery.title;
         updatedGallery.description = req.body.description || oldGallery.description;
