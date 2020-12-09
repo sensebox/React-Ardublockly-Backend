@@ -65,6 +65,9 @@ const TutorialSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  badge: {
+    type: mongoose.Schema.Types.ObjectId
+  },
   steps: [{
     type: StepSchema,
     required: true
