@@ -56,7 +56,6 @@ const login = function(req, res){
                                                   {upsert: true}); // options
                 body.data.user.blocklyRole = user.role;
                 body.data.user.badge = user.badge;
-                console.log(2, body.data.user.boxes);
                 return res.status(200).send({
                   message: 'Successfully signed in.',
                   user: body.data.user,

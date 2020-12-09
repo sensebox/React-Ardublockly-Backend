@@ -21,6 +21,7 @@ const postTutorial = async function(req, res){
         _id: new mongoose.Types.ObjectId(),
         creator: req.user.email,
         title: req.body.title,
+        badge: req.body.badge,
         steps: req.body.steps
       };
       // storing existing images in mongoDB
