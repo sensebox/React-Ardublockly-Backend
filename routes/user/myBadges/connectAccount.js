@@ -35,7 +35,8 @@ const connectAccount = function(req, res){
             var user = await User.findOneAndUpdate({email: req.user.email},{$set: {badge: body.user._id}});
             return res.status(200).send({
               message: 'Successfully connect to MyBadges.',
-              account: body.user._id
+              account: body.user._id,
+              badges: body.user.badge
             });
           });
         })
