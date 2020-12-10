@@ -56,12 +56,50 @@ const login = function(req, res){
                                                   {upsert: true}); // options
                 body.data.user.blocklyRole = user.role;
                 body.data.user.badge = user.badge;
-                return res.status(200).send({
-                  message: 'Successfully signed in.',
-                  user: body.data.user,
-                  token: body.token,
-                  refreshToken: body.refreshToken
-                });
+                if(user.badge){
+                  // get all information about all badges from signed in user
+                  request.get(`${process.env.MYBADGES_API}/api/v1/domain/user/${user.badge}`, {
+                    headers: {
+                      'Content-type': 'application/json',
+                      'Authorization': `Bearer ${process.env.MYBADGES_API_DOMAIN_TOKEN}`
+                    }})
+                    .on('response', function(response) {
+                      // concatenate updates from datastream
+                      var badgesBody = '';
+                      response.on('data', function(chunk){
+                        badgesBody += chunk;
+                      });
+                      response.on('end', async function(){
+                        if(response.statusCode !== 200){
+                          return res.status(200).send({
+                            message: 'Successfully signed in.',
+                            user: body.data.user,
+                            token: body.token,
+                            refreshToken: body.refreshToken
+                          });
+                        }
+                        badgesBody = JSON.parse(badgesBody).user;
+                        body.data.user.badges = badgesBody.badge;
+                        return res.status(200).send({
+                          message: 'Successfully signed in.',
+                          user: body.data.user,
+                          token: body.token,
+                          refreshToken: body.refreshToken
+                        });
+                      });
+                    })
+                    .on('error', function(err) {
+                      return res.status(500).send(err);
+                    });
+                }
+                else {
+                  return res.status(200).send({
+                    message: 'Successfully signed in.',
+                    user: body.data.user,
+                    token: body.token,
+                    refreshToken: body.refreshToken
+                  });
+                }
               });
             });
           })

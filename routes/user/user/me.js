@@ -33,10 +33,44 @@ const me = async function(req, res){
           body.blocklyRole = user.role;
           body.badge = user.badge;
           body.boxes = boxesBody.data.boxes;
-          return res.status(200).send({
-            message: 'User found successfully.',
-            user: body
-          });
+          if(user.badge){
+            // get all information about all badges from signed in user
+            request.get(`${process.env.MYBADGES_API}/api/v1/domain/user/${user.badge}`, {
+              headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${process.env.MYBADGES_API_DOMAIN_TOKEN}`
+              }})
+              .on('response', function(response) {
+                // concatenate updates from datastream
+                var badgesBody = '';
+                response.on('data', function(chunk){
+                  badgesBody += chunk;
+                });
+                response.on('end', async function(){
+                  if(response.statusCode !== 200){
+                    return res.status(200).send({
+                      message: 'User found successfully.',
+                      user: body
+                    });
+                  }
+                  badgesBody = JSON.parse(badgesBody).user;
+                  body.badges = badgesBody.badge;
+                  return res.status(200).send({
+                    message: 'User found successfully.',
+                    user: body
+                  });
+                });
+              })
+              .on('error', function(err) {
+                return res.status(500).send(err);
+              });
+          }
+          else {
+            return res.status(200).send({
+              message: 'User found successfully.',
+              user: body
+            });
+          }
         });
       });
   }
