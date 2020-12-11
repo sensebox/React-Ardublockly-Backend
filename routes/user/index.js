@@ -15,16 +15,16 @@ UserRouter.route('/')
   .get(userAuthorization, require('./user/me').me);
 
 UserRouter.route('/badge')
-  .post(userAuthorization, require('./mybadges/connectAccount').connectAccount);
+  .post(userAuthorization, require('./myBadges/connectAccount').connectAccount);
 
 UserRouter.route('/badge/')
-  .put(userAuthorization, require('./mybadges/disconnectAccount').disconnectAccount);
+  .put(userAuthorization, require('./myBadges/disconnectAccount').disconnectAccount);
 
 UserRouter.route('/badge/:badgeId')
-  .put(userAuthorization, require('./mybadges/assigneBadge').assigneBadge);
+  .put(userAuthorization, require('./myBadges/assigneBadge').assigneBadge);
 
 UserRouter.route('/badge')
-  .get(userAuthorization, require('./mybadges/getBadges').getBadges);
+  .get(userAuthorization, require('./myBadges/getBadges').getBadges);
 
 
 module.exports = UserRouter;
