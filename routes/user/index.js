@@ -14,6 +14,9 @@ UserRouter.route('/')
 UserRouter.route('/')
   .get(userAuthorization, require('./user/me').me);
 
+UserRouter.route('/status')
+  .put(userAuthorization, require('./status/putStatus').putStatus);
+
 UserRouter.route('/badge')
   .post(userAuthorization, require('./myBadges/connectAccount').connectAccount);
 

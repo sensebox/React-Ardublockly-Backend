@@ -56,6 +56,7 @@ const login = function(req, res){
                                                   {upsert: true}); // options
                 body.data.user.blocklyRole = user.role;
                 body.data.user.badge = user.badge;
+                body.data.user.status = user.status;
                 if(user.badge){
                   // get all information about all badges from signed in user
                   request.get(`${process.env.MYBADGES_API}/api/v1/domain/user/${user.badge}`, {
