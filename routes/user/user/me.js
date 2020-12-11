@@ -32,6 +32,7 @@ const me = async function(req, res){
           var user = await User.findOne({email: body.email});
           body.blocklyRole = user.role;
           body.badge = user.badge;
+          body.status = user.status;
           body.boxes = boxesBody.data.boxes;
           if(user.badge){
             // get all information about all badges from signed in user

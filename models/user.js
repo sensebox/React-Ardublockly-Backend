@@ -10,6 +10,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  status: {
+    type: Array,
+    required: true,
+    default: []
+  },
   badge: {
     type: mongoose.Schema.Types.ObjectId,
     required: false
