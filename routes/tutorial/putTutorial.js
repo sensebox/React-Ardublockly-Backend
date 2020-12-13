@@ -22,7 +22,7 @@ const putTutorial = async function(req, res){
       if(owner === oldTutorial.creator){
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
-        updatedTutorial.badge = req.body.badge || oldTutorial.badge;
+        updatedTutorial.badge = req.body.badge ? req.body.badge : undefined;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
         // ensure that the requirement is not related to the tutorial itself
         if(updatedTutorial.steps[0].requirements){
