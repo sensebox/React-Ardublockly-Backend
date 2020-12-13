@@ -35,7 +35,7 @@ const getBadges = async function(req, res){
             badgesBody = JSON.parse(badgesBody);
             // get all badges that are connected with a tutorial and that are assigned to the user
             var userBadges = badgesBody.badges;
-            var tutorialBadges = await Tutorial.find({badge:{ $exists: true}});
+            var tutorialBadges = await Tutorial.find({badge: { $ne: null}});
             var tutorialBadgeIds = tutorialBadges.map(tutorial => tutorial.badge.toString());
             var userBadgesBlockly = userBadges.filter(badge => tutorialBadgeIds.includes(badge._id));
             return res.status(200).send({
