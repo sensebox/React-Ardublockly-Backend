@@ -1,0 +1,48 @@
+{
+  "name": "Blockly for senseBox API",
+  "title": "Blockly for senseBox API documentation",
+  "url": "https://api.blockly.sensebox.de",
+  "order": [
+    "Tutorial",
+    "postTutorial",
+    "putTutorial",
+    "getTutorials",
+    "getTutorial",
+    "deleteTutorial",
+
+    "Project",
+    "postProject",
+    "putProject",
+    "getProjects",
+    "getProject",
+    "deleteProject",
+
+    "Gallery",
+    "postGallery",
+    "putGallery",
+    "getGalleries",
+    "getGallery",
+    "deleteGallery",
+
+    "Share",
+    "postShare",
+    "getShare",
+
+    "User",
+    "signIn",
+    "getDetails",
+    "updateStatus",
+    "connect",
+    "assigneBadge",
+    "getBadges",
+    "disconnect"
+  ],
+  "template": {
+    "withCompare": false,
+    "forceLanguage": "en"
+  },
+  "header": {
+    "title": "Introduction",
+    "filename": "docs/introduction.md"
+  }
+}

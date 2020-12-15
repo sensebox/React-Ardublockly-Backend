@@ -8,6 +8,29 @@ const request = require('request');
 
 const User = require('../../../models/user');
 
+/**
+ * @api {post} /user/badge/ Connect to myBadges
+ * @apiName connect
+ * @apiDescription Connect account of logged in user to an account of myBadges.org.
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization allows to send a valid JSON Web Token along with this request with `Bearer` prefix.
+ * @apiHeaderExample {String} Authorization Header Example
+ *   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo
+ *
+ * @apiParam {String} username username of the user
+ * @apiParam {String} password password of the user
+ *
+ * @apiSuccess (Success 200) {String} message `Successfully connect to MyBadges.`
+ * @apiSuccess (Success 200) {String} account `5eb3c9e47f4297cd60892bb1`
+ * @apiSuccess (Success 200) {Object} badges `[
+		"5eb3c3ce7f4297cd60892b97",
+		"5eb3c2c37f4297cd60892b96",
+	]`
+ *
+ * @apiError (On error) {Object} 403 `{"message": User and or password not valid."}`
+ * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ */
 const connectAccount = function(req, res){
   try{
     console.log(req.headers['origin']);

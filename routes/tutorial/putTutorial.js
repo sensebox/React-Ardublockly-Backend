@@ -10,7 +10,53 @@ const path = require('path');
 const Tutorial = require('../../models/tutorial');
 const User = require('../../models/user');
 
-
+/**
+ * @api {put} /tutorial/:tutorialId Update tutorial
+ * @apiName putTutorial
+ * @apiDescription Update a specific tutorial. All the information of the tutorial must be provided: only the data provided will be stored.
+ * @apiGroup Tutorial
+ *
+ * @apiHeader {String} Authorization allows to send a valid JSON Web Token along with this request with `Bearer` prefix.
+ * @apiHeaderExample {String} Authorization Header Example
+ *   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo
+ *
+ * @apiParam {ObjectId} tutorialId the ID of the tutorial you are referring to
+ * @apiParam {String} title name of the tutorial
+ * @apiParam {ObjectId} [badge] the ID of the badge the tutorial are referring to
+ * @apiParam {Array} steps an array of all steps of the tutorial. Every step has to be an object.
+ *
+ * @apiSuccess (Success 200) {String} message `Tutorial is updated successfully.`
+ * @apiSuccess (Success 200) {Object} tutorial `{
+		"_id": "5fd89de648ccd57688c77d3b",
+		"creator": "em@il.de",
+		"title": "WLAN einrichten",
+		"steps": [
+			{
+				"_id": "5fd89de648ccd57688c77d3d",
+				"type": "instruction",
+				"headline": "Einführung",
+				"text": "In diesem Tutorial lernst du wie man diesenseBox mit dem Internet verbindet.",
+				"hardware": [
+					"senseboxmcu"
+				]
+			},
+			{
+				"_id": "5fd89de648ccd57688c77d3e",
+				"type": "task",
+				"headline": "Aufgabe 1",
+				"text": "Stelle eine WLAN-Verbindung mit einembeliebigen Netzwerk her.",
+				"xml": "<xml xmlns=\"https://developers.google.com/blockly/xml\">\r\n  <block type=\"arduino_functions\" id=\"QWW|$jB8+*EL;}|#uA\" deletable=\"false\" x=\"27\" y=\"16\"></block>\r\n</xml>"
+			}
+		],
+		"createdAt": "2020-12-15T11:28:38.300Z",
+		"updatedAt": "2020-12-15T11:28:38.300Z",
+		"__v": 0
+	}`
+ *
+ * @apiError (On error) {Object} 400 `{"message": Tutorial not found."}`
+ * @apiError (On error) {Object} 403 `{"message": No permission creating the tutorial."}`
+ * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ */
 const putTutorial = async function(req, res){
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});

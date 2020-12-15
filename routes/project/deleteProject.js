@@ -8,6 +8,24 @@ const mongoose = require('mongoose');
 const Project = require('../../models/project');
 const Share = require('../../models/share');
 
+/**
+ * @api {delete} /project/projectId Delete project
+ * @apiName deleteProject
+ * @apiDescription Delete specific project.
+ * @apiGroup Project
+ *
+ * @apiHeader {String} Authorization allows to send a valid JSON Web Token along with this request with `Bearer` prefix.
+ * @apiHeaderExample {String} Authorization Header Example
+ *   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo
+ *
+ * @apiParam {ObjectId} projectId the ID of the project you are referring to
+ *
+ * @apiSuccess (Success 200) {String} message `Project deleted successfully.`
+ *
+ * @apiError (On error) {Object} 403 `{"message": No permission deleting the project."}`
+ * @apiError (On error) {Object} 404 `{"message": Project not found."}`
+ * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ */
 const deleteProject = async function(req, res){
   try{
     var result = await Project.findById(req.params.projectId);
