@@ -23,8 +23,8 @@ define({ "api": [
     "url": "",
     "version": "0.0.0",
     "filename": "./docs/main.js",
-    "group": "C__Users_LucNi_OneDrive_Documents_Studium_Semester_6_Bachelor_Test_React_Ardublockly_Backend_docs_main_js",
-    "groupTitle": "C__Users_LucNi_OneDrive_Documents_Studium_Semester_6_Bachelor_Test_React_Ardublockly_Backend_docs_main_js",
+    "group": "/Users/mariopesch/Documents/GitHub/React-Ardublockly-Backend/docs/main.js",
+    "groupTitle": "/Users/mariopesch/Documents/GitHub/React-Ardublockly-Backend/docs/main.js",
     "name": ""
   },
   {
@@ -1242,13 +1242,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "ObjectId",
-            "optional": true,
-            "field": "badge",
-            "description": "<p>the ID of the badge the tutorial are referring to</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "Array",
             "optional": false,
             "field": "steps",
@@ -1347,13 +1340,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "ObjectId",
-            "optional": true,
-            "field": "badge",
-            "description": "<p>the ID of the badge the tutorial are referring to</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "Array",
             "optional": false,
             "field": "steps",
@@ -1414,316 +1400,6 @@ define({ "api": [
     "groupTitle": "Tutorial"
   },
   {
-    "type": "put",
-    "url": "/user/badge/:badgeId",
-    "title": "Assigne Badge",
-    "name": "assigneBadge",
-    "description": "<p>Assign a badge to the logged in user.</p>",
-    "group": "User",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>allows to send a valid JSON Web Token along with this request with <code>Bearer</code> prefix.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Authorization Header Example",
-          "content": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo",
-          "type": "String"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "ObjectId",
-            "optional": false,
-            "field": "badgeId",
-            "description": "<p>the ID of the badge you are referring to</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p><code>Badge successfully assigned to user.</code></p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "badge",
-            "description": "<p><code>{ \t\t&quot;image&quot;: { \t\t\t&quot;path&quot;: &quot;5eb3bc947f4297cd60892b84_1588838892038_python_2.jpg&quot;, \t\t\t&quot;size&quot;: 62982, \t\t\t&quot;contentType&quot;: &quot;image/jpeg&quot;, \t\t\t&quot;originalName&quot;: &quot;python_2.jpg&quot; \t\t}, \t\t&quot;issuer&quot;: [ \t\t\t&quot;5eb3bc947f4297cd60892b85&quot;, \t\t\t&quot;5eb3be547f4297cd60892b84&quot; \t\t], \t\t&quot;mentor&quot;: [], \t\t&quot;requestor&quot;: [], \t\t&quot;exists&quot;: true, \t\t&quot;_id&quot;: &quot;5eb3c1ec7f4297cd60892b91&quot;, \t\t&quot;category&quot;: &quot;professional skill&quot;, \t\t&quot;name&quot;: &quot;Python II&quot;, \t\t&quot;description&quot;: &quot;Erweiterte Grundlagen von Python&quot;, \t\t&quot;criteria&quot;: &quot;Beherrschung der erweiterten Grundlagen von Python (Klassen und Objekte)&quot;, \t\t&quot;__v&quot;: 9 \t}</code></p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "On error": [
-          {
-            "group": "On error",
-            "type": "Object",
-            "optional": false,
-            "field": "400",
-            "description": "<p><code>{&quot;message&quot;: &quot;Badges is already assigned to user.&quot;}</code> or <code>{&quot;message&quot;: &quot;User is not connected to MyBadges.&quot;}</code></p>"
-          },
-          {
-            "group": "On error",
-            "type": "Obejct",
-            "optional": false,
-            "field": "500",
-            "description": "<p>Complications during querying the database.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./routes/user/myBadges/assigneBadge.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "post",
-    "url": "/user/badge/",
-    "title": "Connect to myBadges",
-    "name": "connect",
-    "description": "<p>Connect account of logged in user to an account of myBadges.org.</p>",
-    "group": "User",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>allows to send a valid JSON Web Token along with this request with <code>Bearer</code> prefix.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Authorization Header Example",
-          "content": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo",
-          "type": "String"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "username",
-            "description": "<p>username of the user</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>password of the user</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p><code>Successfully connect to MyBadges.</code></p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "account",
-            "description": "<p><code>5eb3c9e47f4297cd60892bb1</code></p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "badges",
-            "description": "<p><code>[ \t\t&quot;5eb3c3ce7f4297cd60892b97&quot;, \t\t&quot;5eb3c2c37f4297cd60892b96&quot;, \t]</code></p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "On error": [
-          {
-            "group": "On error",
-            "type": "Object",
-            "optional": false,
-            "field": "403",
-            "description": "<p><code>{&quot;message&quot;: User and or password not valid.&quot;}</code></p>"
-          },
-          {
-            "group": "On error",
-            "type": "Obejct",
-            "optional": false,
-            "field": "500",
-            "description": "<p>Complications during querying the database.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./routes/user/myBadges/connectAccount.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "put",
-    "url": "/user/badge/",
-    "title": "Disconnect from myBadges",
-    "name": "disconnect",
-    "description": "<p>Disconnect account of logged in user from stored myBadges.org-account.</p>",
-    "group": "User",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>allows to send a valid JSON Web Token along with this request with <code>Bearer</code> prefix.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Authorization Header Example",
-          "content": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo",
-          "type": "String"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p><code>User is not longer connected to MyBadges.</code></p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "On error": [
-          {
-            "group": "On error",
-            "type": "Obejct",
-            "optional": false,
-            "field": "500",
-            "description": "<p>Complications during querying the database.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./routes/user/myBadges/disconnectAccount.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/user/badge/",
-    "title": "Get all Badges of User",
-    "name": "getBadges",
-    "description": "<p>Get all Badges of logged in user in context of Blokly for senseBox: all badges which can be achieved in the tutorials.</p>",
-    "group": "User",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>allows to send a valid JSON Web Token along with this request with <code>Bearer</code> prefix.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Authorization Header Example",
-          "content": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo",
-          "type": "String"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p><code>Badges successfully found.</code></p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "badges",
-            "description": "<p><code>{ \t[ \t\t{ \t\t\t&quot;_id&quot;: &quot;5eb3c1ec7f4297cd60892b91&quot;, \t\t\t&quot;category&quot;: &quot;professional skill&quot;, \t\t\t&quot;exists&quot;: true, \t\t\t&quot;name&quot;: &quot;Python II&quot;, \t\t\t&quot;description&quot;: &quot;Erweiterte Grundlagen von Python&quot;, \t\t\t&quot;criteria&quot;: &quot;Beherschung der erweiterten Grundlagen von Python (Klassen und Objekte)&quot;, \t\t\t&quot;issuer&quot;: [ \t\t\t\t{ \t\t\t\t\t&quot;_id&quot;: &quot;5eb3bc947f4297cd60892b84&quot;, \t\t\t\t\t&quot;lastname&quot;: &quot;Max&quot;, \t\t\t\t\t&quot;firstname&quot;: &quot;Mustermann&quot; \t\t\t\t} \t\t\t], \t\t\t&quot;mentor&quot;: [], \t\t\t&quot;image&quot;: { \t\t\t\t&quot;path&quot;: &quot;5eb3bc947f4297cd60892b84_1588838892038_python_2.jpg&quot;, \t\t\t\t&quot;size&quot;: 62982, \t\t\t\t&quot;contentType&quot;: &quot;image/jpeg&quot;, \t\t\t\t&quot;originalName&quot;: &quot;python_2.jpg&quot; \t\t\t}, \t\t\t&quot;__v&quot;: 9, \t\t\t&quot;requestor&quot;: [] \t\t} \t]</code></p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "On error": [
-          {
-            "group": "On error",
-            "type": "Object",
-            "optional": false,
-            "field": "400",
-            "description": "<p><code>{&quot;message&quot;: User is not connected to MyBadges.&quot;}</code></p>"
-          },
-          {
-            "group": "On error",
-            "type": "Obejct",
-            "optional": false,
-            "field": "500",
-            "description": "<p>Complications during querying the database.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./routes/user/myBadges/getBadges.js",
-    "groupTitle": "User"
-  },
-  {
     "type": "get",
     "url": "/user/",
     "title": "Get details",
@@ -1765,7 +1441,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "user",
-            "description": "<p><code>{ \t\t&quot;name&quot;: &quot;nickanme&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;language&quot;: &quot;de_DE&quot;, \t\t&quot;boxes&quot;: [ \t\t\t{ \t\t\t\t&quot;createdAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;exposure&quot;: &quot;indoor&quot;, \t\t\t\t&quot;model&quot;: &quot;homeV2WifiFeinstaub&quot;, \t\t\t\t&quot;name&quot;: &quot;Test&quot;, \t\t\t\t&quot;updatedAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;currentLocation&quot;: { \t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t7.607942, \t\t\t\t\t\t51.976097 \t\t\t\t\t], \t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t}, \t\t\t\t&quot;sensors&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;title&quot;: &quot;Temperatur&quot;, \t\t\t\t\t\t&quot;unit&quot;: &quot;°C&quot;, \t\t\t\t\t\t&quot;sensorType&quot;: &quot;HDC1080&quot;, \t\t\t\t\t\t&quot;icon&quot;: &quot;osem-thermometer&quot;, \t\t\t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3c0&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3b0&quot;, \t\t\t\t&quot;loc&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;geometry&quot;: { \t\t\t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t\t\t7.607942, \t\t\t\t\t\t\t\t51.976097 \t\t\t\t\t\t\t], \t\t\t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t\t\t}, \t\t\t\t\t\t&quot;type&quot;: &quot;Feature&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;integrations&quot;: { \t\t\t\t\t&quot;mqtt&quot;: { \t\t\t\t\t\t&quot;enabled&quot;: false \t\t\t\t\t} \t\t\t\t}, \t\t\t\t&quot;access_token&quot;: &quot;3d2e24edd9196b8ca4b29f88547b085f441d9e76810ba80046232490debec91e&quot;, \t\t\t\t&quot;useAuth&quot;: true \t\t\t} \t\t], \t\t&quot;emailIsConfirmed&quot;: false, \t\t&quot;blocklyRole&quot;: &quot;user&quot;, \t\t&quot;badge&quot;: &quot;5eb3c9e47f4297cd60892bb0&quot;, \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t] \t\t\t} \t\t], \t\t&quot;badges&quot;: [ \t\t\t&quot;5eb3c3ce7f4297cd60892b98&quot; \t\t] }</code></p>"
+            "description": "<p><code>{ \t\t&quot;name&quot;: &quot;nickanme&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;language&quot;: &quot;de_DE&quot;, \t\t&quot;boxes&quot;: [ \t\t\t{ \t\t\t\t&quot;createdAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;exposure&quot;: &quot;indoor&quot;, \t\t\t\t&quot;model&quot;: &quot;homeV2WifiFeinstaub&quot;, \t\t\t\t&quot;name&quot;: &quot;Test&quot;, \t\t\t\t&quot;updatedAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;currentLocation&quot;: { \t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t7.607942, \t\t\t\t\t\t51.976097 \t\t\t\t\t], \t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t}, \t\t\t\t&quot;sensors&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;title&quot;: &quot;Temperatur&quot;, \t\t\t\t\t\t&quot;unit&quot;: &quot;°C&quot;, \t\t\t\t\t\t&quot;sensorType&quot;: &quot;HDC1080&quot;, \t\t\t\t\t\t&quot;icon&quot;: &quot;osem-thermometer&quot;, \t\t\t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3c0&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3b0&quot;, \t\t\t\t&quot;loc&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;geometry&quot;: { \t\t\t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t\t\t7.607942, \t\t\t\t\t\t\t\t51.976097 \t\t\t\t\t\t\t], \t\t\t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t\t\t}, \t\t\t\t\t\t&quot;type&quot;: &quot;Feature&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;integrations&quot;: { \t\t\t\t\t&quot;mqtt&quot;: { \t\t\t\t\t\t&quot;enabled&quot;: false \t\t\t\t\t} \t\t\t\t}, \t\t\t\t&quot;access_token&quot;: &quot;3d2e24edd9196b8ca4b29f88547b085f441d9e76810ba80046232490debec91e&quot;, \t\t\t\t&quot;useAuth&quot;: true \t\t\t} \t\t], \t\t&quot;emailIsConfirmed&quot;: false, \t\t&quot;blocklyRole&quot;: &quot;user&quot;, \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t] \t\t\t} \t\t] }</code></p>"
           }
         ]
       }
@@ -1850,7 +1526,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "user",
-            "description": "<p><code>{ \t\t&quot;name&quot;: &quot;nickanme&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;language&quot;: &quot;de_DE&quot;, \t\t&quot;boxes&quot;: [ \t\t\t{ \t\t\t\t&quot;createdAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;exposure&quot;: &quot;indoor&quot;, \t\t\t\t&quot;model&quot;: &quot;homeV2WifiFeinstaub&quot;, \t\t\t\t&quot;name&quot;: &quot;Test&quot;, \t\t\t\t&quot;updatedAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;currentLocation&quot;: { \t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t7.607942, \t\t\t\t\t\t51.976097 \t\t\t\t\t], \t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t}, \t\t\t\t&quot;sensors&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;title&quot;: &quot;Temperatur&quot;, \t\t\t\t\t\t&quot;unit&quot;: &quot;°C&quot;, \t\t\t\t\t\t&quot;sensorType&quot;: &quot;HDC1080&quot;, \t\t\t\t\t\t&quot;icon&quot;: &quot;osem-thermometer&quot;, \t\t\t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3c0&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3b0&quot;, \t\t\t\t&quot;loc&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;geometry&quot;: { \t\t\t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t\t\t7.607942, \t\t\t\t\t\t\t\t51.976097 \t\t\t\t\t\t\t], \t\t\t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t\t\t}, \t\t\t\t\t\t&quot;type&quot;: &quot;Feature&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;integrations&quot;: { \t\t\t\t\t&quot;mqtt&quot;: { \t\t\t\t\t\t&quot;enabled&quot;: false \t\t\t\t\t} \t\t\t\t}, \t\t\t\t&quot;access_token&quot;: &quot;3d2e24edd9196b8ca4b29f88547b085f441d9e76810ba80046232490debec91e&quot;, \t\t\t\t&quot;useAuth&quot;: true \t\t\t} \t\t], \t\t&quot;emailIsConfirmed&quot;: false, \t\t&quot;blocklyRole&quot;: &quot;user&quot;, \t\t&quot;badge&quot;: &quot;5eb3c9e47f4297cd60892bb0&quot;, \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t] \t\t\t} \t\t], \t\t&quot;badges&quot;: [ \t\t\t&quot;5eb3c3ce7f4297cd60892b98&quot; \t\t] }</code></p>"
+            "description": "<p><code>{ \t\t&quot;name&quot;: &quot;nickanme&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;language&quot;: &quot;de_DE&quot;, \t\t&quot;boxes&quot;: [ \t\t\t{ \t\t\t\t&quot;createdAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;exposure&quot;: &quot;indoor&quot;, \t\t\t\t&quot;model&quot;: &quot;homeV2WifiFeinstaub&quot;, \t\t\t\t&quot;name&quot;: &quot;Test&quot;, \t\t\t\t&quot;updatedAt&quot;: &quot;2020-12-03T11:14:27.537Z&quot;, \t\t\t\t&quot;currentLocation&quot;: { \t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t7.607942, \t\t\t\t\t\t51.976097 \t\t\t\t\t], \t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t}, \t\t\t\t&quot;sensors&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;title&quot;: &quot;Temperatur&quot;, \t\t\t\t\t\t&quot;unit&quot;: &quot;°C&quot;, \t\t\t\t\t\t&quot;sensorType&quot;: &quot;HDC1080&quot;, \t\t\t\t\t\t&quot;icon&quot;: &quot;osem-thermometer&quot;, \t\t\t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3c0&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;_id&quot;: &quot;5fc8c893fab469001ce0b3b0&quot;, \t\t\t\t&quot;loc&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;geometry&quot;: { \t\t\t\t\t\t\t&quot;timestamp&quot;: &quot;2020-12-03T11:14:27.532Z&quot;, \t\t\t\t\t\t\t&quot;coordinates&quot;: [ \t\t\t\t\t\t\t\t7.607942, \t\t\t\t\t\t\t\t51.976097 \t\t\t\t\t\t\t], \t\t\t\t\t\t\t&quot;type&quot;: &quot;Point&quot; \t\t\t\t\t\t}, \t\t\t\t\t\t&quot;type&quot;: &quot;Feature&quot; \t\t\t\t\t} \t\t\t\t], \t\t\t\t&quot;integrations&quot;: { \t\t\t\t\t&quot;mqtt&quot;: { \t\t\t\t\t\t&quot;enabled&quot;: false \t\t\t\t\t} \t\t\t\t}, \t\t\t\t&quot;access_token&quot;: &quot;3d2e24edd9196b8ca4b29f88547b085f441d9e76810ba80046232490debec91e&quot;, \t\t\t\t&quot;useAuth&quot;: true \t\t\t} \t\t], \t\t&quot;emailIsConfirmed&quot;: false, \t\t&quot;blocklyRole&quot;: &quot;user&quot;, \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t] \t\t\t} \t\t] }</code></p>"
           }
         ]
       }
@@ -1934,7 +1610,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "user",
-            "description": "<p><code>{ \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t]       } \t\t], \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;_id&quot;: &quot;5fce51c6b958a8ea6066c969&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;__v&quot;: 0, \t\t&quot;createdAt&quot;: &quot;2020-12-07T16:01:10.586Z&quot;, \t\t&quot;updatedAt&quot;: &quot;2020-12-15T10:57:01.510Z&quot;, \t\t&quot;badge&quot;: &quot;5eb3c9e47f4297cd60892bb1&quot; \t}</code></p>"
+            "description": "<p><code>{ \t\t&quot;status&quot;: [ \t\t\t{ \t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e85&quot;, \t\t\t\t&quot;tasks&quot;: [ \t\t\t\t\t{ \t\t\t\t\t\t&quot;_id&quot;: &quot;5fcf7caabd63e209146d3e88&quot;, \t\t\t\t\t\t&quot;xml&quot;: &quot;&lt;xml xmlns=\\&quot;https://developers.google.com/blockly/xml\\&quot;&gt;\\n  &lt;block type=\\&quot;arduino_functions\\&quot; id=\\&quot;QWW|$jB8+*EL;}|#uA\\&quot; deletable=\\&quot;false\\&quot; x=\\&quot;27\\&quot; y=\\&quot;16\\&quot;&gt;\\n    &lt;statement name=\\&quot;SETUP_FUNC\\&quot;&gt;\\n      &lt;block type=\\&quot;sensebox_display_show\\&quot; id=\\&quot;4nsbNC7n~EqM3pAN5flc\\&quot;&gt;&lt;/block&gt;\\n    &lt;/statement&gt;\\n  &lt;/block&gt;\\n&lt;/xml&gt;&quot;, \t\t\t\t\t\t&quot;type&quot;: &quot;error&quot; \t\t\t\t\t} \t\t\t\t]       } \t\t], \t\t&quot;role&quot;: &quot;user&quot;, \t\t&quot;_id&quot;: &quot;5fce51c6b958a8ea6066c969&quot;, \t\t&quot;email&quot;: &quot;em@il.de&quot;, \t\t&quot;__v&quot;: 0, \t\t&quot;createdAt&quot;: &quot;2020-12-07T16:01:10.586Z&quot;, \t\t&quot;updatedAt&quot;: &quot;2020-12-15T10:57:01.510Z&quot; \t}</code></p>"
           }
         ]
       }
