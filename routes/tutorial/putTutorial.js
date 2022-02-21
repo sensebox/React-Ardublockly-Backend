@@ -64,7 +64,7 @@ const putTutorial = async function (req, res) {
     if (oldTutorial) {
       var user = await User.findOne({ email: req.user.email });
       var owner = req.user.email;
-      if (owner === oldTutorial.creator) {
+      if (owner === oldTutorial.creator || req.user.role === "admin") {
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
