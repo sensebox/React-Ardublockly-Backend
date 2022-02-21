@@ -2,79 +2,60 @@
 // jshint node: true
 "use strict";
 
-const mongoose = require('mongoose');
-
-const MediaSchema = new mongoose.Schema({
-  youtube: {
-    type: String
-  },
-  picture: {
-    path: {
-      type: String
-    },
-    size: {
-      type: Number
-    },
-    contentType: {
-      type: String
-    },
-    originalName: {
-      type: String
-    }
-  }
-});
+const mongoose = require("mongoose");
 
 const StepSchema = new mongoose.Schema({
   type: {
     type: String,
-    enum: ['instruction','task'],
-    required: true
+    enum: ["instruction", "task"],
+    required: true,
   },
   headline: {
     type: String,
-    required: true
+    required: true,
   },
   text: {
     type: String,
-    required: true
+    required: true,
   },
   requirements: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Tutorial',
-    default: undefined
+    ref: "Tutorial",
+    default: undefined,
   },
   hardware: {
     type: [String],
-    default: undefined
-  },
-  media: {
-    type: MediaSchema
+    default: undefined,
   },
   xml: {
-    type: String
+    type: String,
+  },
+});
+
+const TutorialSchema = new mongoose.Schema(
+  {
+    creator: {
+      type: String,
+      ref: "User",
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    badge: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    steps: [
+      {
+        type: StepSchema,
+        required: true,
+      },
+    ],
+  },
+  {
+    timestamps: true,
   }
-});
+);
 
-const TutorialSchema = new mongoose.Schema({
-  creator: {
-    type: String,
-    ref: 'User',
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  badge: {
-    type: mongoose.Schema.Types.ObjectId
-  },
-  steps: [{
-    type: StepSchema,
-    required: true
-  }]
-},{
-  timestamps: true
-});
-
-
-module.exports = mongoose.model('Tutorial', TutorialSchema);
+module.exports = mongoose.model("Tutorial", TutorialSchema);
