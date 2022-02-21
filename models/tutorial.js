@@ -4,26 +4,6 @@
 
 const mongoose = require("mongoose");
 
-const MediaSchema = new mongoose.Schema({
-  youtube: {
-    type: String,
-  },
-  picture: {
-    path: {
-      type: String,
-    },
-    size: {
-      type: Number,
-    },
-    contentType: {
-      type: String,
-    },
-    originalName: {
-      type: String,
-    },
-  },
-});
-
 const StepSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -46,9 +26,6 @@ const StepSchema = new mongoose.Schema({
   hardware: {
     type: [String],
     default: undefined,
-  },
-  media: {
-    type: MediaSchema,
   },
   xml: {
     type: String,
