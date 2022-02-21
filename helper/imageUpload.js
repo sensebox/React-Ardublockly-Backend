@@ -2,33 +2,30 @@
 // jshint node: true
 "use strict";
 
+const path = require('path');
 const multer = require('multer');
-const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, './upload');
-    },
-    filename: (req, file, cb) => {
-      cb(null, /*${req.user.id}_*/`${Date.now()}_${file.originalname}`);
-    }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", '/routes/tutorial/images'));
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    var extension = file.originalname.split('.');
+    extension = extension[extension.length - 1]
+    cb(null, uuidv4()+"."+extension);
+  }
 });
 
 var upload = multer({
   storage: storage,
-  fileFilter: function (req, file, callback) {
-    var fields = req.files.filter(file => /^steps\[\d\]\[media\]\[picture\]$/.test(file.fieldname));
-    var extensionType = file.mimetype.split('image/')[1];
-    if(fields.length !== req.files.length){
-      req.fileValidationError = "Files are only allowed at this specific field {steps: [{media: {picture: File}}]}]";
-      return callback(null, false);
-    }
-    else if(extensionType !== 'png' && extensionType !== 'jpg' && extensionType !== 'gif' && extensionType !== 'jpeg') {
-      req.fileValidationError = "Only images with extension 'PNG', 'JPEG', 'JPG' and 'GIF' are allowed.";
-      return callback(null, false);
-    }
-    else {
-      callback(null, true);
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
     }
   }
 });
