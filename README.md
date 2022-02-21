@@ -21,7 +21,6 @@ The API will be accessabile on port `8080``
 - GET Project from Share (w/o user)
 - GET Boxes from openSenseMap (user) (not implemented yet)
 
-
 - POST new Tutorial (creator)
 - POST new Gallery Project (creator)
 - POST new Project by user (user)
@@ -31,11 +30,9 @@ The API will be accessabile on port `8080``
 - PUT/DELETE Gallery
 - PUT/DELETE Project
 
-
-
 ### Tutorial
 
-Stores the Tutorial and is read only if user is not logged in. 
+Stores the Tutorial and is read only if user is not logged in.
 
 ### Share
 
@@ -43,4 +40,8 @@ Stores the shares and accesible for everybody. Shares can only be viewed with a 
 
 ### Gallery
 
-The Gallery stores all the examples. 
+The Gallery stores all the examples.
+
+## Build docs
+
+run `npm run docs` from the main folder

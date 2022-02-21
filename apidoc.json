@@ -33,8 +33,6 @@
     "getDetails",
     "updateStatus",
     "connect",
-    "assigneBadge",
-    "getBadges",
     "disconnect"
   ],
   "template": {
