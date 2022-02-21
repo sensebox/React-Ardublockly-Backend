@@ -31,8 +31,6 @@ define({
     "getDetails",
     "updateStatus",
     "connect",
-    "assigneBadge",
-    "getBadges",
     "disconnect"
   ],
   "template": {
@@ -48,8 +46,8 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2020-12-15T12:30:21.670Z",
-    "url": "http://apidocjs.com",
-    "version": "0.19.0"
+    "time": "2021-07-27T12:44:23.291Z",
+    "url": "https://apidocjs.com",
+    "version": "0.28.1"
   }
 });
