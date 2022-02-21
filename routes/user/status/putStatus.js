@@ -2,10 +2,10 @@
 // jshint node: true
 "use strict";
 
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const User = require('../../../models/user');
+const User = require("../../../models/user");
 
 /**
  * @api {put} /user/status Update status
@@ -38,35 +38,36 @@ const User = require('../../../models/user');
 		"email": "em@il.de",
 		"__v": 0,
 		"createdAt": "2020-12-07T16:01:10.586Z",
-		"updatedAt": "2020-12-15T10:57:01.510Z",
-		"badge": "5eb3c9e47f4297cd60892bb1"
+		"updatedAt": "2020-12-15T10:57:01.510Z"
 	}`
  *
  * @apiError (On error) {Object} 400 `{"message": "Status is required and has to be an array."}`
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const putStatus = async function(req, res){
+const putStatus = async function (req, res) {
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
   try {
-    if(req.body.status && Array.isArray(req.body.status)){
-      var user = await User.findOneAndUpdate({email: req.user.email}, {$set:{status: req.body.status}}, {upsert: true, new: true});
+    if (req.body.status && Array.isArray(req.body.status)) {
+      var user = await User.findOneAndUpdate(
+        { email: req.user.email },
+        { $set: { status: req.body.status } },
+        { upsert: true, new: true }
+      );
       return res.status(200).send({
-        message: 'Status is updated successfully.',
-        user: user
+        message: "Status is updated successfully.",
+        user: user,
       });
-    }
-    else {
+    } else {
       return res.status(400).send({
-        message: 'Status is required and has to be an array.',
+        message: "Status is required and has to be an array.",
       });
     }
-  }
-  catch(err){
+  } catch (err) {
     return res.status(500).send(err);
   }
 };
 
 module.exports = {
-  putStatus
+  putStatus,
 };

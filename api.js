@@ -20,6 +20,10 @@ api.use(cors());
 api.set('views', path.join(__dirname, 'views'));
 api.set('view engine', 'jade');
 
+// increase size limit for image upload
+api.use(express.urlencoded({limit: '50mb'}));
+api.use(express.json({limit: '50mb'}));
+
 api.use(logger('dev'));
 api.use(express.json());
 // api.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -35,12 +39,14 @@ var shareRouter = require('./routes/share/index');
 var galleryRouter = require('./routes/gallery/index');
 var projectRouter = require('./routes/project/index');
 var userRouter = require('./routes/user/index');
+var uploadRouter = require('./routes/upload/index');
 
 api.use('/tutorial', tutorialRouter);
 api.use('/share', shareRouter);
 api.use('/gallery', galleryRouter);
 api.use('/project', projectRouter);
 api.use('/user', userRouter);
+api.use('/upload', uploadRouter);
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {
