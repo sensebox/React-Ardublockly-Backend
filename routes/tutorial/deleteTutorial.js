@@ -2,12 +2,12 @@
 // jshint node: true
 "use strict";
 
-const express = require('express');
-const mongoose = require('mongoose');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
 
-const Tutorial = require('../../models/tutorial');
+const Tutorial = require("../../models/tutorial");
 
 /**
  * @api {delete} /tutorial/:tutorialId Delete tutorial
@@ -27,51 +27,56 @@ const Tutorial = require('../../models/tutorial');
  * @apiError (On error) {Object} 403 `{"message": No permission deleting the tutorial."}`
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const deleteTutorial = async function(req, res){
-  try{
+const deleteTutorial = async function (req, res) {
+  try {
     var tutorial = await Tutorial.findById(req.params.tutorialId);
-    if(tutorial){
+    if (tutorial) {
       var owner = req.user.email;
-      if(owner === tutorial.creator){
-        await Tutorial.deleteOne({_id: req.params.tutorialId});
+      if (owner === tutorial.creator || req.user.role === "admin") {
+        await Tutorial.deleteOne({ _id: req.params.tutorialId });
         // // remove links to the deleted tutorial
-        await Tutorial.updateMany({}, {$pull: {'steps.$[].requirements': req.params.tutorialId}}, {multi: true});
+        await Tutorial.updateMany(
+          {},
+          { $pull: { "steps.$[].requirements": req.params.tutorialId } },
+          { multi: true }
+        );
         // remove images of the deleted tutorial
         var imagePaths = [];
         tutorial.steps.forEach((step, i) => {
-          if(step.media && step.media.picture && step.media.picture.path){
+          if (step.media && step.media.picture && step.media.picture.path) {
             imagePaths.push(step.media.picture.path);
           }
         });
         imagePaths.forEach((imagePath, i) => {
-          fs.unlink(path.join(__dirname, '..', '..', 'upload', imagePath), function(err) {
-            // if(err && err.code == 'ENOENT') {
+          fs.unlink(
+            path.join(__dirname, "..", "..", "upload", imagePath),
+            function (err) {
+              // if(err && err.code == 'ENOENT') {
               // file doens't exist
-            // } else if (err) {
+              // } else if (err) {
               // other errors, e.g. maybe we don't have enough permission
-            // } else {
-            // }
-          });
+              // } else {
+              // }
+            }
+          );
         });
         return res.status(200).send({
-          message: 'Tutorial deleted successfully.',
+          message: "Tutorial deleted successfully.",
         });
-      }
-      else {
+      } else {
         return res.status(403).send({
-          message: 'No permission deleting the tutorial.',
+          message: "No permission deleting the tutorial.",
         });
       }
     }
     return res.status(404).send({
-      message: 'Tutorial not found.',
+      message: "Tutorial not found.",
     });
-  }
-  catch(err){
+  } catch (err) {
     return res.status(500).send(err);
   }
 };
 
 module.exports = {
-  deleteTutorial
+  deleteTutorial,
 };
