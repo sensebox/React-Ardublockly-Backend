@@ -2,11 +2,11 @@
 // jshint node: true
 "use strict";
 
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const Tutorial = require('../../models/tutorial');
-const User = require('../../models/user');
+const Tutorial = require("../../models/tutorial");
+const User = require("../../models/user");
 
 /**
  * @api {post} /tutorial Create tutorial
@@ -19,7 +19,6 @@ const User = require('../../models/user');
  *   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3J329j7JrPst6p02d311u7AsXVCUEyvoiTo
  *
  * @apiParam {String} title name of the tutorial
- * @apiParam {ObjectId} [badge] the ID of the badge the tutorial are referring to
  * @apiParam {Array} steps an array of all steps of the tutorial. Every step has to be an object.
  *
  * @apiSuccess (Success 201) {String} message `Tutorial is successfully created.`
@@ -53,52 +52,52 @@ const User = require('../../models/user');
  * @apiError (On error) {Object} 403 `{"message": No permission creating the tutorial."}`
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const postTutorial = async function(req, res){
-  if(req.fileValidationError){
-    return res.status(422).send({message: req.fileValidationError});
+const postTutorial = async function (req, res) {
+  if (req.fileValidationError) {
+    return res.status(422).send({ message: req.fileValidationError });
   }
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
-  try{
-    var user = await User.findOne({email: req.user.email});
-    if(user.role !== 'user'){
+  try {
+    var user = await User.findOne({ email: req.user.email });
+    if (user.role !== "user") {
       const body = {
         _id: new mongoose.Types.ObjectId(),
         creator: req.user.email,
         title: req.body.title,
-        badge: req.body.badge,
-        steps: req.body.steps
+        steps: req.body.steps,
       };
       // storing existing images in mongoDB
-      req.files && req.files.forEach((file, i) => {
-        var index = parseInt(file.fieldname.replace('steps[','').replace('][media][picture]'));
-        body.steps[index].media = {};
-        body.steps[index].media.picture = {
-          path: file.filename,
-          size: file.size,
-          contentType: file.mimetype,
-          originalName: file.originalname
-        };
-      });
+      req.files &&
+        req.files.forEach((file, i) => {
+          var index = parseInt(
+            file.fieldname.replace("steps[", "").replace("][media][picture]")
+          );
+          body.steps[index].media = {};
+          body.steps[index].media.picture = {
+            path: file.filename,
+            size: file.size,
+            contentType: file.mimetype,
+            originalName: file.originalname,
+          };
+        });
       const tutorial = new Tutorial(body);
       const savedTutorial = await tutorial.save();
       return res.status(201).send({
-        message: 'Tutorial is successfully created.',
-        tutorial: savedTutorial
+        message: "Tutorial is successfully created.",
+        tutorial: savedTutorial,
       });
-    }
-    else {
+    } else {
       return res.status(403).send({
-        message: 'No permission creating the tutorial.',
+        message: "No permission creating the tutorial.",
       });
     }
-  }
-  catch(err) {
+  } catch (err) {
     console.log(err);
     return res.status(500).send(err);
   }
 };
 
 module.exports = {
-  postTutorial
+  postTutorial,
 };

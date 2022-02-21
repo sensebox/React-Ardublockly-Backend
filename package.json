@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "docs": "apidoc -i . -e \"(node_modules)\" -o docs"
+    "docs": "apidoc -i . -e  \"docs\" \"(node_modules)\" -o docs"
   },
   "dependencies": {
     "chalk": "^4.1.0",
