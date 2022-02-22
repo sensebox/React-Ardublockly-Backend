@@ -43,6 +43,10 @@ const TutorialSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    difficulty: {
+      type: Number,
+      required: true,
+    },
     steps: [
       {
         type: StepSchema,
