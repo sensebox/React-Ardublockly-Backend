@@ -43,6 +43,16 @@ const TutorialSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    public: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    review: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     difficulty: {
       type: Number,
       required: true,
