@@ -8,6 +8,7 @@
     "docs": "apidoc -i . -e  \"docs\" \"(node_modules)\" -o docs"
   },
   "dependencies": {
+    "@geobadges/badgr-api-client": "^0.12.0",
     "chalk": "^4.1.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -25,5 +26,8 @@
     "request": "^2.88.2",
     "uuid": "^8.3.2",
     "uuidv4": "^6.2.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
