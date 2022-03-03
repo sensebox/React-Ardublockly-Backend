@@ -18,8 +18,8 @@ const badgesClient = new API({
  *
  * @apiParam {String} email Users Email
  * @apiParam {String} badgeClassEntityId ID of the badge class
- * @apiParam {ObjectId} createNotification User receives an email notification
- * @apiParam {ObjectId} issuerEntityId ID of the issuer
+ * @apiParam {boolean} createNotification User receives an email notification
+ * @apiParam {String} issuerEntityId ID of the issuer
  *
  * @apiSuccess (Success 200) {String} message `Badge granted successfully.`
  * @apiError (On error) {Obejct} 500 Complications when granting badge
