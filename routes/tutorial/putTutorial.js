@@ -9,6 +9,7 @@ const path = require("path");
 
 const Tutorial = require("../../models/tutorial");
 const User = require("../../models/user");
+const { update } = require("../../models/tutorial");
 
 /**
  * @api {put} /tutorial/:tutorialId Update tutorial
@@ -67,7 +68,10 @@ const putTutorial = async function (req, res) {
       if (owner === oldTutorial.creator) {
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
+        updatedTutorial.badgeId = req.body.badgeId || oldTutorial.badgeId;
+        updatedTutorial.issuerId = req.body.issuerId || oldTutorial.issuerId;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
+
         // ensure that the requirement is not related to the tutorial itself
         if (updatedTutorial.steps[0].requirements) {
           updatedTutorial.steps[0].requirements =
