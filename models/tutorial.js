@@ -43,6 +43,14 @@ const TutorialSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    badgeId: {
+      type: String,
+      required: false,
+    },
+    issuerId: {
+      type: String,
+      required: false,
+    },
     steps: [
       {
         type: StepSchema,
