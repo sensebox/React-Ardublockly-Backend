@@ -10,10 +10,23 @@ const badgesClient = new API({
   password: process.env.BADGES_PASSWORD,
 });
 
-const grantBadge = async function (req, res) {
+/**
+ * @api {post} /grant Grant a badge
+ * @apiName grandBadge
+ * @apiDescription Grant a badge to a user.
+ * @apiGroup Badge
+ *
+ * @apiParam {String} email Users Email
+ * @apiParam {String} badgeClassEntityId ID of the badge class
+ * @apiParam {ObjectId} createNotification User receives an email notification
+ * @apiParam {ObjectId} issuerEntityId ID of the issuer
+ *
+ * @apiSuccess (Success 200) {String} message `Badge granted successfully.`
+ * @apiError (On error) {Obejct} 500 Complications when granting badge
+ */
+const grantBadge = async (req, res) => {
   try {
-    const email = req.user?.email || req.body.email;
-    const { badgeClassEntityId, createNotification, issuerEntityId } = req.body;
+    const { email, badgeClassEntityId, createNotification, issuerEntityId } = req.body;
 
     if (!email) {
       return res.status(400).send({
