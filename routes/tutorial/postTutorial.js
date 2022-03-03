@@ -66,6 +66,8 @@ const postTutorial = async function (req, res) {
         creator: req.user.email,
         title: req.body.title,
         steps: req.body.steps,
+        badgeId: req.body.badgeId,
+        issuerId: req.body.issuerId,
       };
       // storing existing images in mongoDB
       req.files &&
