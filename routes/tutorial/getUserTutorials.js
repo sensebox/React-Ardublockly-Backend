@@ -10,7 +10,7 @@ const Tutorial = require("../../models/tutorial");
 /**
  * @api {get} /tutorial Get tutorials
  * @apiName getTutorials
- * @apiDescription Get all tutorials which are public.
+ * @apiDescription Get all tutorials by one user.
  * @apiGroup Tutorial
  *
  * @apiSuccess (Success 200) {String} message `Tutorials found successfully.`
@@ -46,11 +46,13 @@ const Tutorial = require("../../models/tutorial");
  *
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const getTutorials = async function (req, res) {
+const getUserTutorials = async function (req, res) {
   try {
-    var result = await Tutorial.find({ public: true });
+    var userTutorials = await Tutorial.find({ creator: req.user.email });
+    var publicTutorials = await Tutorial.find({ public: true });
+    var result = userTutorials.concat(publicTutorials);
     return res.status(200).send({
-      message: "All public Tutorials found successfully.",
+      message: "All User Tutorials found successfully.",
       tutorials: result,
     });
   } catch (err) {
@@ -59,5 +61,5 @@ const getTutorials = async function (req, res) {
 };
 
 module.exports = {
-  getTutorials,
+  getUserTutorials,
 };

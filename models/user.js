@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "creator", "user"],
       required: true,
-      default: "user",
+      default: "creator",
     },
   },
   {

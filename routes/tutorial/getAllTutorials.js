@@ -10,7 +10,7 @@ const Tutorial = require("../../models/tutorial");
 /**
  * @api {get} /tutorial Get tutorials
  * @apiName getTutorials
- * @apiDescription Get all tutorials which are public.
+ * @apiDescription Get all tutorials as admin.
  * @apiGroup Tutorial
  *
  * @apiSuccess (Success 200) {String} message `Tutorials found successfully.`
@@ -46,18 +46,24 @@ const Tutorial = require("../../models/tutorial");
  *
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const getTutorials = async function (req, res) {
+const getAllTutorials = async function (req, res) {
   try {
-    var result = await Tutorial.find({ public: true });
-    return res.status(200).send({
-      message: "All public Tutorials found successfully.",
-      tutorials: result,
-    });
+    if (req.user.role === "admin") {
+      var result = await Tutorial.find({});
+      return res.status(200).send({
+        message: "Tutorials found successfully.",
+        tutorials: result,
+      });
+    } else {
+      return res.status(403).send({
+        message: "No permission getting all the tutorial.",
+      });
+    }
   } catch (err) {
     return res.status(500).send(err);
   }
 };
 
 module.exports = {
-  getTutorials,
+  getAllTutorials,
 };
