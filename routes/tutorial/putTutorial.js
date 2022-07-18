@@ -64,9 +64,13 @@ const putTutorial = async function (req, res) {
     if (oldTutorial) {
       var user = await User.findOne({ email: req.user.email });
       var owner = req.user.email;
-      if (owner === oldTutorial.creator) {
+      if (owner === oldTutorial.creator || req.user.role === "admin") {
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
+        updatedTutorial.difficulty =
+          req.body.difficulty || oldTutorial.difficulty;
+        updatedTutorial.public = req.body.public || oldTutorial.public;
+        updatedTutorial.review = req.body.review || oldTutorial.review;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
         // ensure that the requirement is not related to the tutorial itself
         if (updatedTutorial.steps[0].requirements) {
