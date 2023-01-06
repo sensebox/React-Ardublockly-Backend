@@ -18,9 +18,16 @@ const GallerySchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  board: {
+    type: String,
+    required: true,
+  },
   xml: {
     type: String
-  }
+  },
+  type: {
+    type: String,
+  },
 },{
   timestamps: true
 });
