@@ -9,6 +9,10 @@ const ShareSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  board: {
+    type: String,
+    required: true,
+  },
   expiresAt: {
     type: Date,
     required: true,

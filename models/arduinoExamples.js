@@ -4,13 +4,12 @@
 
 const mongoose = require('mongoose');
 
-const ProjectSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Share',
+const ArduinoExamplesSchema = new mongoose.Schema({
+  title: {
+    type: String,
     required: true
   },
-  title: {
+  description: {
     type: String,
     required: true
   },
@@ -23,7 +22,7 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  xml: {
+  code: {
     type: String
   }
 },{
@@ -31,4 +30,4 @@ const ProjectSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Project', ProjectSchema);
+module.exports = mongoose.model('ArduinoExamples', ArduinoExamplesSchema);

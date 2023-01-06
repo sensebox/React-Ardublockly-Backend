@@ -4,8 +4,8 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const arduinoExamples = require('../../models/arduinoExamples');
 
-const Gallery = require('../../models/gallery');
 const User = require('../../models/user');
 
 /**
@@ -39,23 +39,23 @@ const User = require('../../models/user');
  * @apiError (On error) {Object} 403 `{"message": No permission updating the gallery project."}`
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const putGallery = async function(req, res){
+const putExample = async function(req, res){
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
   try {
-    var oldGallery = await Gallery.findOne({_id: req.params.galleryId});
-    if(oldGallery){
+    var oldExample = await arduinoExamples.findOne({_id: req.params.galleryId});
+    if(oldExample){
       var user = await User.findOne({email: req.user.email});
       var owner = req.user.email;
-      if(owner === oldGallery.creator || user.role === 'admin'){
-        var updatedGallery = {};
-        updatedGallery.title = req.body.title || oldGallery.title;
-        updatedGallery.description = req.body.description || oldGallery.description;
-        updatedGallery.xml = req.body.xml || oldGallery.xml;
-        var gallery = await Gallery.findOneAndUpdate({_id: oldGallery._id}, updatedGallery, {upsert: true, new: true});
+      if(owner === oldExample.creator || user.role === 'admin'){
+        var updatedExample = {};
+        updatedExample.title = req.body.title || oldExample.title;
+        updatedExample.description = req.body.description || oldExample.description;
+        updatedExample.code = req.body.code || oldExample.code;
+        var example = await arduinoExamples.findOneAndUpdate({_id: oldExample._id}, updatedExample, {upsert: true, new: true});
         return res.status(200).send({
           message: 'Gallery is updated successfully.',
-          gallery: gallery
+          example: example
         });
       }
       else {
@@ -76,5 +76,5 @@ const putGallery = async function(req, res){
 };
 
 module.exports = {
-  putGallery
+  putExample
 };

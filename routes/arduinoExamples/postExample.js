@@ -5,7 +5,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Gallery = require('../../models/gallery');
+const arduinoExamples = require('../../models/arduinoExamples');
 const User = require('../../models/user');
 
 
@@ -38,7 +38,7 @@ const User = require('../../models/user');
  * @apiError (On error) {Object} 403 `{"message": No permission creating the gallery project."}`
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const postGallery = async function(req, res){
+const postExample = async function(req, res){
   // const {error} = projectValidation(req.body);
   // if(error) return res.status(422).send({message: error.details[0].message});
   try{
@@ -48,16 +48,16 @@ const postGallery = async function(req, res){
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         description: req.body.description,
-        xml: req.body.xml,
+        code: req.body.code,
         creator: req.user.email,
         board: req.body.board,
         type: req.body.type,
       };
-      const gallery = new Gallery(body);
-      const savedGallery = await gallery.save();
+      const example = new arduinoExamples(body);
+      const savedExamples = await example.save();
       return res.status(201).send({
         message: 'Gallery is successfully created.',
-        gallery: savedGallery
+        arduinoExamples: savedExamples
       });
     }
     else {
@@ -73,5 +73,5 @@ const postGallery = async function(req, res){
 };
 
 module.exports = {
-  postGallery
+  postExample
 };
