@@ -18,10 +18,6 @@ const StepSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  board: {
-    type: String,
-    required: true,
-  },
   requirements: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Tutorial",
@@ -59,6 +55,10 @@ const TutorialSchema = new mongoose.Schema(
     },
     difficulty: {
       type: Number,
+      required: true,
+    },
+    board: {
+      type: String,
       required: true,
     },
     steps: [

@@ -29,7 +29,7 @@ const deleteGallery = async function(req, res){
   try{
     var result = await Gallery.findById(req.params.galleryId);
     var owner = req.user.email;
-    if(owner === result.creator){
+    if(owner === result.creator || req.user.role === 'admin'){
       var gallery = await Gallery.deleteOne({_id: req.params.galleryId});
       if(gallery && gallery.deletedCount > 0){
         return res.status(200).send({
