@@ -10,10 +10,10 @@ const User = require('../../models/user');
 
 
 /**
- * @api {post} /gallery Create gallery
- * @apiName postGallery
- * @apiDescription Create a gallery.
- * @apiGroup Gallery
+ * @api {post} /arduino Create Arduino Example
+ * @apiName postExample
+ * @apiDescription Create a Arduino Example.
+ * @apiGroup ArduinoExamples
  *
  * @apiHeader {String} Authorization allows to send a valid JSON Web Token along with this request with `Bearer` prefix.
  * @apiHeaderExample {String} Authorization Header Example
