@@ -36,6 +36,7 @@ api.use('/media', express.static(path.join(__dirname, 'upload')));
 
 var tutorialRouter = require('./routes/tutorial/index');
 var shareRouter = require('./routes/share/index');
+var classroomRouter = require('./routes/classroom/index');
 var galleryRouter = require('./routes/gallery/index');
 var projectRouter = require('./routes/project/index');
 var userRouter = require('./routes/user/index');
@@ -47,6 +48,7 @@ api.use('/gallery', galleryRouter);
 api.use('/project', projectRouter);
 api.use('/user', userRouter);
 api.use('/upload', uploadRouter);
+api.use('/classroom', classroomRouter);
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {
