@@ -23,16 +23,15 @@ ClassroomRouter.route('/:classroomId')
 ClassroomRouter.route('/:classroomId')
   .get(userAuthorization, require('./getClassroom').getClassroom);
 
+
 ClassroomRouter.route('/:classroomCode')
   .get(require('./getClassroomByCode').getClassroomByCode);
 
 
-
-
-
-ClassroomRouter.route('/:classroomId/project')
-  .post(classroomUserAuthorization, require('./postClassroomProject').postClassroomProject);
-
+/*
+** Add Classroom User
+**
+*/  
 
 ClassroomRouter.route('/:classroomId/adduser')
   .post(userAuthorization, require('./postClassroomAddUser').postClassroomAddUser);
@@ -66,6 +65,12 @@ ClassroomRouter.route('/logout')
 // Get single Project by User
 ClassroomRouter.route('/:classroomId/:projectId')
   .get(classroomUserAuthorization, require('./getClassroomProject').getClassroomProject);
+
+  ClassroomRouter.route('/:classroomId/project')
+  .post(classroomUserAuthorization, require('./postClassroomProject').postClassroomProject);
+
+  ClassroomRouter.route('/:classroomId/project/:projectId')
+  .put(classroomUserAuthorization, require('./putClassroomProject').putClassroomProject);
 
 
 
