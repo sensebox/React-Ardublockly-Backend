@@ -42,6 +42,7 @@ const postProject = async function(req, res){
       title: req.body.title,
       xml: req.body.xml,
       creator: req.user.email,
+      board: req.body.board
     };
     const project = new Project(body);
     const savedProject = await project.save();
