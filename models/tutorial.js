@@ -59,7 +59,12 @@ const TutorialSchema = new mongoose.Schema(
     },
     board: {
       type: String,
-      required: true,
+      required: false,
+    },
+    language: {
+      type: String,
+      enum: ["en", "de"],
+      default: "en",
     },
     steps: [
       {
