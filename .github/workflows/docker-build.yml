@@ -2,11 +2,14 @@ name: Build and Publish Docker Image to GHCR
 
 on:
   push:
-    tags:
-      - "v*" # Triggers on version tags like v1.0.0
-    branches: 
+    branches:
       - development
-  workflow_dispatch: # Allow manual trigger
+    tags:
+      - "v*"  # Triggers on version tags like v1.0.0
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build:
