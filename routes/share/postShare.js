@@ -56,6 +56,7 @@ const postShare = async function(req, res){
       const body = {
         _id: req.body.projectId ? req.body.projectId : new mongoose.Types.ObjectId(),
         title: req.body.title,
+        board: req.body.board,
         expiresAt: moment.utc().add(Number(process.env.SHARE_EXPIRES_IN),'seconds').toDate(),
       };
       if(req.body.xml){ body.xml = req.body.xml; }
