@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   api:
     build: .
@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo:4.2
+    image: mongo:noble
     volumes:
       - ./data:/data/db
       - ./init-mongo-user.js:/docker-entrypoint-initdb.d/init-mongo-user.js:ro
@@ -17,4 +17,3 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_DBNAME}
-
