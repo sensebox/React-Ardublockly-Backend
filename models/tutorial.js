@@ -23,8 +23,8 @@ const StepSchema = new mongoose.Schema({
     ref: "Tutorial",
     default: undefined,
   },
-  hardware: {
-    type: [String],
+  questionData: {
+    type: [Object],
     default: undefined,
   },
   xml: {
@@ -56,6 +56,12 @@ const TutorialSchema = new mongoose.Schema(
     difficulty: {
       type: Number,
       required: true,
+    },
+    learnings: {
+      type: [Object],
+    },
+    hardware: {
+      type: [String],
     },
     steps: [
       {
