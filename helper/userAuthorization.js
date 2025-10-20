@@ -4,7 +4,7 @@
 
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const User = require("../../models/user"); // Passe Pfad ggf. an
+const User = require("../models/user"); // Passe Pfad
 
 const userAuthorization = async (req, res, next) => {
   const authHeader = req.headers.authorization;
