@@ -7,10 +7,19 @@ var UserRouter = express.Router();
 
 const { userAuthorization } = require("../../helper/userAuthorization");
 
-UserRouter.route("/").post(require("./user/login").login);
+// 🔹 Neuer Endpunkt: Eigenständige Registrierung
+UserRouter.route("/register").post(require("./user/register").register);
 
+// 🔹 Neuer Endpunkt: Eigenständiges Login (native)
+UserRouter.route("/login").post(require("./user/nativeLogin").nativeLogin);
+
+// 🔸 Bestehender Endpunkt: Login via openSenseMap (umbenannt für Klarheit)
+UserRouter.route("/login/opensensemap").post(require("./user/login").login);
+
+// 🔹 GET /user/me – bleibt gleich (für authentifizierte Nutzer)
 UserRouter.route("/").get(userAuthorization, require("./user/me").me);
 
+// 🔹 Status-Update
 UserRouter.route("/status").put(
   userAuthorization,
   require("./status/putStatus").putStatus
