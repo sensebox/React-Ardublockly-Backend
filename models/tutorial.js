@@ -10,7 +10,7 @@ const StepSchema = new mongoose.Schema({
     enum: ["instruction", "task", "blockly", "finish", "question"],
     required: true,
   },
-  headline: {
+  title: {
     type: String,
     required: true,
   },
