@@ -67,6 +67,7 @@ const putTutorial = async function (req, res) {
       if (owner === oldTutorial.creator || req.user.role === "admin") {
         var updatedTutorial = {};
         updatedTutorial.title = req.body.title || oldTutorial.title;
+        updatedTutorial.subtitle = req.body.subtitle || oldTutorial.subtitle;
         updatedTutorial.difficulty =
           req.body.difficulty || oldTutorial.difficulty;
         updatedTutorial.public = req.body.public || oldTutorial.public;
