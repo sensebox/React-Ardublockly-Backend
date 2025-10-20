@@ -72,6 +72,8 @@ const putTutorial = async function (req, res) {
         updatedTutorial.public = req.body.public || oldTutorial.public;
         updatedTutorial.review = req.body.review || oldTutorial.review;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
+        updatedTutorial.hardware = req.body.hardware || oldTutorial.hardware;
+        updatedTutorial.learnings = req.body.learnings || oldTutorial.learnings;
         // ensure that the requirement is not related to the tutorial itself
         if (updatedTutorial.steps[0].requirements) {
           updatedTutorial.steps[0].requirements =
