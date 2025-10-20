@@ -16,7 +16,6 @@ const StepSchema = new mongoose.Schema({
   },
   text: {
     type: String,
-    required: true,
   },
   requirements: {
     type: [mongoose.Schema.Types.ObjectId],
