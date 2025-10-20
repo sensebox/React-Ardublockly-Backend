@@ -1,32 +1,31 @@
-// jshint esversion: 6
-// jshint node: true
-"use strict";
-
-const mongoose = require("mongoose");
-
 const UserSchema = new mongoose.Schema(
   {
     email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     status: {
       type: Array,
-      required: true,
       default: [],
     },
-
     role: {
       type: String,
       enum: ["admin", "creator", "user"],
-      required: true,
-      default: "creator",
+      default: "user",
+    },
+    authProvider: {
+      type: String,
+      enum: ["native", "opensensemap"],
+      default: "native",
     },
   },
   {
     timestamps: true,
   }
 );
-
-module.exports = mongoose.model("User", UserSchema);
