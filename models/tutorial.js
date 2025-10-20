@@ -14,6 +14,10 @@ const StepSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subtitle: {
+    type: String,
+    required: true,
+  },
   text: {
     type: String,
   },
@@ -39,6 +43,10 @@ const TutorialSchema = new mongoose.Schema(
       required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    subtitle: {
       type: String,
       required: true,
     },
