@@ -12,11 +12,9 @@ const StepSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true,
   },
   subtitle: {
     type: String,
-    required: true,
   },
   text: {
     type: String,
@@ -44,11 +42,9 @@ const TutorialSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
     },
     subtitle: {
       type: String,
-      required: true,
     },
     public: {
       type: Boolean,

@@ -65,6 +65,7 @@ const postTutorial = async function (req, res) {
         _id: new mongoose.Types.ObjectId(),
         creator: req.user.email,
         title: req.body.title,
+        subtitle: req.body.subtitle,
         difficulty: req.body.difficulty,
         learnings: req.body.learnings,
         hardware: req.body.hardware,
