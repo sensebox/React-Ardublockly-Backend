@@ -18,6 +18,7 @@ const register = async (req, res) => {
 
     const newUser = new User({
       email,
+      role: "creator",
       password: hashedPassword,
       authProvider: "native",
     });
