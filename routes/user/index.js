@@ -19,6 +19,11 @@ UserRouter.route("/login/opensensemap").post(require("./user/login").login);
 // 🔹 GET /user/me – bleibt gleich (für authentifizierte Nutzer)
 UserRouter.route("/").get(userAuthorization, require("./user/me").me);
 
+UserRouter.route("/me").delete(
+  // ← ✅ /me statt /delete
+  userAuthorization,
+  require("./user/nativeLogin").deleteUser // ← ✅ Funktion heißt deleteUser
+);
 // 🔹 Status-Update
 UserRouter.route("/status").put(
   userAuthorization,

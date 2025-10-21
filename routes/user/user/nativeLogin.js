@@ -47,4 +47,36 @@ const nativeLogin = async (req, res) => {
     res.status(500).json({ message: "Login failed." });
   }
 };
-module.exports = { nativeLogin };
+
+// 🔥 Neue Funktion: Nutzer löschen
+const deleteUser = async (req, res) => {
+  // ❗ Annahme: Diese Route ist mit `userAuthorization`-Middleware geschützt
+  // → req.user ist verfügbar und enthält den eingeloggten Nutzer
+
+  try {
+    const userId = req.user._id;
+
+    // Optional: Prüfe, ob der Nutzer auch wirklich "native" ist
+    const user = await User.findOne({ _id: userId, authProvider: "native" });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found or not a native account." });
+    }
+
+    // Nutzer löschen
+    const result = await User.deleteOne({ _id: userId });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json({
+      message: "User account successfully deleted.",
+    });
+  } catch (err) {
+    console.error("Delete user error:", err);
+    res.status(500).json({ message: "Failed to delete user." });
+  }
+};
+
+module.exports = { nativeLogin, deleteUser };
