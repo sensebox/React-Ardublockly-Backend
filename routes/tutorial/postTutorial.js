@@ -72,6 +72,10 @@ const postTutorial = async function (req, res) {
         public: req.body.public,
         review: req.body.review,
         steps: req.body.steps,
+        duration: req.body.duration,
+        year: req.body.year,
+        subjects: req.body.subjects,
+        topics: req.body.topics,
       };
       // storing existing images in mongoDB
       req.files &&

@@ -66,6 +66,18 @@ const TutorialSchema = new mongoose.Schema(
     hardware: {
       type: [String],
     },
+    duration: {
+      type: String,
+    },
+    year: {
+      type: String,
+    },
+    subjects: {
+      type: [String],
+    },
+    topics: {
+      type: [String],
+    },
     steps: [
       {
         type: StepSchema,
