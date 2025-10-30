@@ -1,19 +1,32 @@
 // utils/mailer.js
 const nodemailer = require("nodemailer");
 
-// Beispiel: SMTP-Konfiguration (angepasst an deinen E-Mail-Dienst)
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST, // z. B. "smtp.gmail.com"
-  port: 587, // z. B. 587
-  secure: false, // true für 465, false für anderer Port
+const transporter = nodemailer.createTransporter({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: false,
   auth: {
-    user: process.env.SMTP_USER, // Deine E-Mail-Adresse
-    pass: process.env.SMTP_PASS, // Dein App-Passwort (bei Gmail)
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 
-const sendResetPasswordEmail = async (email, resetToken) => {
-  const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`; // z. B. http://localhost:3000
+// 🔥 NEU: Funktion, die req als Parameter nimmt, um dynamische URL zu ermitteln
+const sendResetPasswordEmail = async (req, email, resetToken) => {
+  // 1. Versuche, die Basis-URL aus dem Referer-Header abzuleiten
+  let clientBaseUrl = process.env.CLIENT_URL; // Fallback aus .env
+
+  if (req && req.get("Referer")) {
+    try {
+      const refererUrl = new URL(req.get("Referer"));
+      clientBaseUrl = `${refererUrl.protocol}//${refererUrl.host}`;
+    } catch (err) {
+      console.warn("Konnte Referer nicht parsen, verwende CLIENT_URL aus .env");
+    }
+  }
+
+  // 2. Erstelle den Reset-Link
+  const resetUrl = `${clientBaseUrl}/user/reset-password?token=${resetToken}`;
 
   const mailOptions = {
     from: process.env.SMTP_USER,

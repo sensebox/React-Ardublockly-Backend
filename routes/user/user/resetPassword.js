@@ -20,11 +20,9 @@ const requestPasswordReset = async (req, res) => {
 
     if (!user) {
       // Um Pre-Enumeration zu verhindern, sende dieselbe Antwort wie bei Erfolg
-      return res
-        .status(200)
-        .json({
-          message: "Wenn die E-Mail existiert, wurde ein Link gesendet.",
-        });
+      return res.status(200).json({
+        message: "Wenn die E-Mail existiert, wurde ein Link gesendet.",
+      });
     }
 
     // Generiere Token
@@ -37,7 +35,7 @@ const requestPasswordReset = async (req, res) => {
     await user.save();
 
     // Sende E-Mail mit Link
-    await sendResetPasswordEmail(email, resetToken);
+    await sendResetPasswordEmail(req, email, resetToken);
 
     res
       .status(200)
