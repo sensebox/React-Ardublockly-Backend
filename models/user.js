@@ -21,6 +21,12 @@ const UserSchema = new mongoose.Schema(
       enum: ["admin", "creator", "user"],
       default: "user",
     },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
     authProvider: {
       type: String,
       enum: ["native", "opensensemap"],

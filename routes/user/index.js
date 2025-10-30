@@ -6,6 +6,7 @@ var express = require("express");
 var UserRouter = express.Router();
 
 const { userAuthorization } = require("../../helper/userAuthorization");
+const { requestPasswordReset, resetPassword } = require("./user/resetPassword");
 
 // 🔹 Neuer Endpunkt: Eigenständige Registrierung
 UserRouter.route("/register").post(require("./user/register").register);
@@ -20,14 +21,19 @@ UserRouter.route("/login/opensensemap").post(require("./user/login").login);
 UserRouter.route("/").get(userAuthorization, require("./user/me").me);
 
 UserRouter.route("/me").delete(
-  // ← ✅ /me statt /delete
   userAuthorization,
-  require("./user/nativeLogin").deleteUser // ← ✅ Funktion heißt deleteUser
+  require("./user/nativeLogin").deleteUser
 );
 // 🔹 Status-Update
 UserRouter.route("/status").put(
   userAuthorization,
   require("./status/putStatus").putStatus
 );
+
+// POST /user/reset-password/request
+UserRouter.route("/reset-password/request").post(requestPasswordReset);
+
+// POST /user/reset-password/reset
+UserRouter.route("/reset-password/reset").post(resetPassword);
 
 module.exports = UserRouter;
