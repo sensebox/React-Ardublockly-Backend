@@ -7,7 +7,14 @@ const mongoose = require("mongoose");
 const StepSchema = new mongoose.Schema({
   type: {
     type: String,
-    enum: ["instruction", "task", "blockly", "finish", "question"],
+    enum: [
+      "instruction",
+      "task",
+      "blockly",
+      "finish",
+      "question",
+      "blocklyExample",
+    ],
     required: true,
   },
   title: {
