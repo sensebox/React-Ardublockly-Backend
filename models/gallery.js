@@ -1,29 +1,18 @@
-// jshint esversion: 6
-// jshint node: true
-"use strict";
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const mongoose = require('mongoose');
-
-const GallerySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
+const gallerySchema = new Schema(
+  {
+    _id: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String },
+    xml: { type: String },
+    creator: { type: String },
   },
-  description: {
-    type: String,
-    required: true
-  },
-  creator: {
-    type: String,
-    ref: 'User',
-    required: true
-  },
-  xml: {
-    type: String
+  {
+    timestamps: true,
+    collection: "galleries",
   }
-},{
-  timestamps: true
-});
+);
 
-
-module.exports = mongoose.model('Gallery', GallerySchema);
+module.exports = mongoose.model("Gallery", gallerySchema);
