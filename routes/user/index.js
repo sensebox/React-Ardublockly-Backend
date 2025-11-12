@@ -7,7 +7,7 @@ var UserRouter = express.Router();
 
 const { userAuthorization } = require("../../helper/userAuthorization");
 const { requestPasswordReset, resetPassword } = require("./user/resetPassword");
-
+const { refresh } = require("./user/refresh");
 // 🔹 Neuer Endpunkt: Eigenständige Registrierung
 UserRouter.route("/register").post(require("./user/register").register);
 
@@ -35,5 +35,8 @@ UserRouter.route("/reset-password/request").post(requestPasswordReset);
 
 // POST /user/reset-password/reset
 UserRouter.route("/reset-password/reset").post(resetPassword);
+
+// POST user/refresh-token
+UserRouter.route("/refresh-token").post(refresh);
 
 module.exports = UserRouter;

@@ -19,11 +19,18 @@ const nativeLogin = async (req, res) => {
       return res.status(403).json({ message: "Invalid credentials." });
     }
 
+    // const token = jwt.sign(
+    //   { id: user._id, email: user.email },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: "1h" }
+    // );
+
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "15s" }
     );
+
     const refreshToken = jwt.sign(
       { id: user._id },
       process.env.REFRESH_TOKEN_SECRET,
@@ -79,51 +86,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const refresh = async (req, res) => {
-  const { refreshToken } = req.body;
-
-  if (!refreshToken) {
-    return res.status(400).json({ message: "Refresh token is required." });
-  }
-
-  try {
-    // Verifiziere den Refresh Token mit dem geheimen Schlüssel
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-    // Hole den Nutzer aus der DB
-    const user = await User.findById(decoded.id);
-    if (!user) {
-      return res.status(403).json({ message: "Invalid refresh token." });
-    }
-
-    // Optional: Prüfe, ob der Nutzer noch "aktiv" oder native ist
-    if (user.authProvider !== "native") {
-      return res.status(403).json({ message: "Invalid refresh token." });
-    }
-
-    // Erstelle ein neues Access Token
-    const newToken = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    const newRefreshToken = jwt.sign(
-      { id: user._id },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    return res.json({
-      token: newToken,
-      refreshToken: newRefreshToken,
-    });
-  } catch (err) {
-    console.error("Refresh token error:", err.message);
-    return res
-      .status(403)
-      .json({ message: "Invalid or expired refresh token." });
-  }
-};
-
-module.exports = { nativeLogin, deleteUser, refresh };
+module.exports = { nativeLogin, deleteUser };
