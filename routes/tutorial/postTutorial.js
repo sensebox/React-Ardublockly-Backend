@@ -65,10 +65,17 @@ const postTutorial = async function (req, res) {
         _id: new mongoose.Types.ObjectId(),
         creator: req.user.email,
         title: req.body.title,
+        subtitle: req.body.subtitle,
         difficulty: req.body.difficulty,
+        learnings: req.body.learnings,
+        hardware: req.body.hardware,
         public: req.body.public,
         review: req.body.review,
         steps: req.body.steps,
+        duration: req.body.duration,
+        year: req.body.year,
+        subjects: req.body.subjects,
+        topics: req.body.topics,
       };
       // storing existing images in mongoDB
       req.files &&

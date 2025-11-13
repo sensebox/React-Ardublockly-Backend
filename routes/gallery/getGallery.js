@@ -2,10 +2,10 @@
 // jshint node: true
 "use strict";
 
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const Gallery = require('../../models/gallery');
+const Gallery = require("../../models/gallery");
 
 /**
  * @api {get} /gallery/:galleryId Get gallery
@@ -33,21 +33,29 @@ const Gallery = require('../../models/gallery');
  *
  * @apiError (On error) {Obejct} 500 Complications during querying the database.
  */
-const getGallery = async function(req, res){
-  try{
-    var id = req.params.galleryId;
-    var result = await Gallery.findById(id);
-    // TODO: .populate({path: 'creator', model: 'User', select: 'name'})
+const getGallery = async function (req, res) {
+  try {
+    const id = req.params.galleryId;
+    console.log("Gallery ID:", id);
+
+    const result = await Gallery.findOne({ _id: id });
+
+    if (!result) {
+      return res.status(404).send({ message: "Gallery not found" });
+    }
+
     return res.status(200).send({
-      message: 'Gallery found successfully.',
-      gallery: result
+      message: "Gallery found successfully.",
+      gallery: result,
     });
-  }
-  catch(err){
-    return res.status(500).send(err);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: "Server error", error: err.message });
   }
 };
 
 module.exports = {
-  getGallery
+  getGallery,
 };

@@ -1,4 +1,4 @@
-version: '3'
+version: "4.1"
 services:
   api:
     build: .
@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo:4.2
+    image: mongo:noble
     volumes:
       - ./data:/data/db
       - ./init-mongo-user.js:/docker-entrypoint-initdb.d/init-mongo-user.js:ro
@@ -17,4 +17,16 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_DBNAME}
-
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongo
+    restart: always
