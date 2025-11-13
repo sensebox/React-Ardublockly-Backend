@@ -7,24 +7,32 @@ const mongoose = require("mongoose");
 const StepSchema = new mongoose.Schema({
   type: {
     type: String,
-    enum: ["instruction", "task"],
+    enum: [
+      "instruction",
+      "task",
+      "blockly",
+      "finish",
+      "question",
+      "blocklyExample",
+    ],
     required: true,
   },
-  headline: {
+  title: {
     type: String,
-    required: true,
+  },
+  subtitle: {
+    type: String,
   },
   text: {
     type: String,
-    required: true,
   },
   requirements: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Tutorial",
     default: undefined,
   },
-  hardware: {
-    type: [String],
+  questionData: {
+    type: [Object],
     default: undefined,
   },
   xml: {
@@ -41,7 +49,9 @@ const TutorialSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
+    },
+    subtitle: {
+      type: String,
     },
     public: {
       type: Boolean,
@@ -56,6 +66,24 @@ const TutorialSchema = new mongoose.Schema(
     difficulty: {
       type: Number,
       required: true,
+    },
+    learnings: {
+      type: [Object],
+    },
+    hardware: {
+      type: [String],
+    },
+    duration: {
+      type: String,
+    },
+    year: {
+      type: String,
+    },
+    subjects: {
+      type: [String],
+    },
+    topics: {
+      type: [String],
     },
     steps: [
       {

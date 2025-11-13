@@ -1,7 +1,3 @@
-// jshint esversion: 6
-// jshint node: true
-"use strict";
-
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
@@ -10,18 +6,31 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     status: {
       type: Array,
-      required: true,
       default: [],
     },
-
     role: {
       type: String,
       enum: ["admin", "creator", "user"],
-      required: true,
-      default: "creator",
+      default: "user",
+    },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
+    authProvider: {
+      type: String,
+      enum: ["native", "opensensemap"],
+      default: "native",
     },
   },
   {
