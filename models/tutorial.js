@@ -4,6 +4,17 @@
 
 const mongoose = require("mongoose");
 
+const QuestionSchema = new mongoose.Schema(
+  {
+    question: String,
+    answers: [Object],
+    h5plink: String,
+    type: String,
+    multipleChoice: Boolean,
+  },
+  { _id: true }
+);
+
 const StepSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -14,6 +25,7 @@ const StepSchema = new mongoose.Schema({
       "finish",
       "question",
       "blocklyExample",
+      "h5p",
     ],
     required: true,
   },
@@ -32,10 +44,13 @@ const StepSchema = new mongoose.Schema({
     default: undefined,
   },
   questionData: {
-    type: [Object],
+    type: [QuestionSchema],
     default: undefined,
   },
   xml: {
+    type: String,
+  },
+  h5psrc: {
     type: String,
   },
 });
@@ -96,5 +111,19 @@ const TutorialSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+TutorialSchema.pre("save", function (next) {
+  this.steps.forEach((step) => {
+    if (step.type === "question" && Array.isArray(step.questionData)) {
+      step.questionData.forEach((q) => {
+        if (!q.id) {
+          q.id = q._id?.toString();
+        }
+      });
+    }
+  });
+
+  next();
+});
 
 module.exports = mongoose.model("Tutorial", TutorialSchema);
