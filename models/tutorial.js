@@ -53,6 +53,9 @@ const StepSchema = new mongoose.Schema({
   h5psrc: {
     type: String,
   },
+  h5psrc: {
+    type: String,
+  },
 });
 
 const TutorialSchema = new mongoose.Schema(
