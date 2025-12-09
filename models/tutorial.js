@@ -50,7 +50,7 @@ const StepSchema = new mongoose.Schema({
   svg: {
     type: String,
   },
-  h5psrc: {
+  xml: {
     type: String,
   },
   h5psrc: {
