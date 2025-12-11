@@ -47,6 +47,9 @@ const StepSchema = new mongoose.Schema({
     type: [QuestionSchema],
     default: undefined,
   },
+  svg: {
+    type: String,
+  },
   xml: {
     type: String,
   },
