@@ -7,7 +7,8 @@ var UserRouter = express.Router();
 
 const { userAuthorization } = require("../../helper/userAuthorization");
 const { requestPasswordReset, resetPassword } = require("./user/resetPassword");
-const { refresh } = require("./user/refresh");UserRouter.route("/register").post(require("./user/register").register);
+const { refresh } = require("./user/refresh");
+UserRouter.route("/register").post(require("./user/register").register);
 
 UserRouter.route("/login").post(require("./user/nativeLogin").nativeLogin);
 
