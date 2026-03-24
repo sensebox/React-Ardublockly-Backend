@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const progressSchema = new Schema(
   {
     _id: { type: String, required: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "PseudoUser" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "GroupMember" },
     groupId: { type: mongoose.Schema.Types.ObjectId, ref: "Group" },
     tutorialId: { type: mongoose.Schema.Types.ObjectId, ref: "Tutorial" },
     currentPage: { type: Number },

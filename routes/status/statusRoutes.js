@@ -1,6 +1,6 @@
 "use strict";
 
-const PseudoUser = require("../../models/pseudoUser");
+const GroupMember = require("../../models/groupMembers");
 const Group = require("../../models/group");
 
 /**
@@ -26,7 +26,7 @@ const studentHeartbeat = async function (req, res) {
       return res.status(400).send({ message: "Missing required fields." });
     }
 
-    await PseudoUser.findOneAndUpdate(
+    await GroupMember.findOneAndUpdate(
       { _id: pseudoUserId, groupId: groupId },
       { lastSeen: new Date() }
     );

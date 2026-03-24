@@ -3,7 +3,6 @@
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
 const GroupTutorial = require("../../models/groupTutorial");
-const PseudoUser = require("../../models/pseudoUser");
 const Progress = require("../../models/progress");
 
 /**
@@ -40,10 +39,8 @@ const leaveAndDeleteGroup = async function (req, res) {
       const members = await GroupMember.find({ groupId });
       
       for (const member of members) {
-        if (member.pseudoUserId) {
-          // Delete progress for this pseudo user
-          await Progress.deleteMany({ userId: member.pseudoUserId, groupId });
-          await PseudoUser.findByIdAndDelete(member.pseudoUserId);
+        if (member.role === "student") {
+          await Progress.deleteMany({ userId: member._id, groupId });
         }
       }
 

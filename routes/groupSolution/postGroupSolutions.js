@@ -1,9 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const PseudoUser = require("../../models/pseudoUser");
-const Tutorial = require("../../models/tutorial");
-const tutorial = require("../../models/tutorial");
+const GroupMember = require("../../models/groupMembers");
 
 /**
  * @api {post} /solutions Create a solution for a tutorial
@@ -31,10 +29,10 @@ const tutorial = require("../../models/tutorial");
  * @apiError (On error) {Object} 403 `{"message": No permission creating the solution."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const postSolution = async function(req, res){
+const postGroupSolution = async function(req, res){
 
   try{
-    var student = await PseudoUser.findOne({id : req.user.id});
+    var student = await GroupMember.findOne({id : req.user.id});
     if(student.role !== 'student'){
       const body = {
         _id: new mongoose.Types.ObjectId(),
@@ -64,5 +62,5 @@ const postSolution = async function(req, res){
 };
 
 module.exports = {
-  postSolution,
+  postGroupSolution
       };

@@ -2,7 +2,6 @@
 
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
-const PseudoUser = require("../../models/pseudoUser");
 
 /**
  * @api {get} /groups/:groupId/members Get group members
@@ -46,21 +45,17 @@ const getGroupMembers = async function (req, res) {
       return res.status(403).send({ message: "No permission to view members of this group." });
     }
 
-    const members = await GroupMember.find({ groupId, role: "student" })
-      .populate("pseudoUserId");
+    const members = await GroupMember.find({ groupId, role: "student" });
 
     const formattedMembers = members.map((member) => {
-      const pseudoUser = member.pseudoUserId;
-      if (!pseudoUser) return null;
-
       return {
-        pseudoUserId: pseudoUser._id,
-        name: pseudoUser.name,
-        nickname: pseudoUser.nickname,
-        online: isOnline(pseudoUser.lastSeen),
-        lastSeen: pseudoUser.lastSeen || null,
+        memberId: member._id,
+        name: member.name,
+        nickname: member.nickname,
+        online: isOnline(member.lastSeen),
+        lastSeen: member.lastSeen || null,
       };
-    }).filter((m) => m !== null);
+    });
 
     return res.status(200).send({
       message: "Group members found successfully.",

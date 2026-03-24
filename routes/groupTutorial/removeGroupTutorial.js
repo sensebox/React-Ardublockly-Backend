@@ -20,7 +20,7 @@ const Group = require("../../models/group");
  * @apiError (On error) {Object} 404 `{"message": "Tutorial release not found."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const deleteGroupTutorial = async function (req, res) {
+const removeGroupTutorial = async function (req, res) {
   try {
     const userId = req.user.id;
     const { groupId, tutorialId } = req.params;
@@ -52,5 +52,5 @@ const deleteGroupTutorial = async function (req, res) {
 };
 
 module.exports = {
-  deleteGroupTutorial,
+  removeGroupTutorial,
 };

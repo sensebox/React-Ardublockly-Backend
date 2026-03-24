@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const Group = require("../../models/group");
-const PseudoUser = require("../../models/pseudoUser");
+const GroupMember = require("../../models/groupMembers");
 
 /**
  * @api {post} /groups/:groupId/students Create student account
@@ -23,7 +23,7 @@ const PseudoUser = require("../../models/pseudoUser");
  * @apiError (On error) {Object} 409 `{"message": "Nickname already exists in this group."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const createStudentAccount = async function (req, res) {
+const createStudent = async function (req, res) {
   try {
     const userId = req.user.id;
     const groupId = req.params.groupId;
@@ -53,17 +53,19 @@ const createStudentAccount = async function (req, res) {
       return res.status(403).send({ message: "No permission to create students in this group." });
     }
 
-    const existingStudent = await PseudoUser.findOne({ groupId, nickname: trimmedNickname });
+    const existingStudent = await GroupMember.findOne({ groupId, nickname: trimmedNickname, role: "student" });
     if (existingStudent) {
       return res.status(409).send({ message: "Nickname already exists in this group." });
     }
 
-    const student = new PseudoUser({
+    const student = new GroupMember({
       _id: new mongoose.Types.ObjectId().toString(),
+      groupId,
+      role: "student",
       name: trimmedName,
       nickname: trimmedNickname,
-      groupId,
       onlineStatus: false,
+      claimed: false,
     });
 
     await student.save();
@@ -85,5 +87,5 @@ const createStudentAccount = async function (req, res) {
 };
 
 module.exports = {
-  createStudentAccount,
+  createStudent,
 };

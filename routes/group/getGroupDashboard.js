@@ -40,11 +40,10 @@ const getGroupDashboard = async function (req, res) {
     const groupTurorials = await GroupTutorial.find({ groupId });
     const studentsTutorials = groupTurorials.map((gt) => gt.tutorialId);
 
-    const students = await GroupMember.find({ groupId, role: "student" })
-      .populate("pseudoUserId");
+    const students = await GroupMember.find({ groupId, role: "student" });
 
-    const activeStudents = students.filter((s) => s.pseudoUserId && s.pseudoUserId.onlineStatus);
-    const pendingStudents = students.filter((s) => s.pseudoUserId && !s.pseudoUserId.onlineStatus);
+    const activeStudents = students.filter((s) => s.onlineStatus === true);
+    const pendingStudents = students.filter((s) => !s.onlineStatus);
 
 
     return res.status(200).send({

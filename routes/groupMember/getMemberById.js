@@ -2,7 +2,7 @@
 
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
-const PseudoUser = require("../../models/pseudoUser");
+
 
 /**
  * @api {get} /groups/:groupId/members/:memberId Get a specific group member
@@ -40,21 +40,20 @@ const getMemberById = async function (req, res) {
       return res.status(403).send({ message: "No permission to view this member." });
     }
 
-    const member = await GroupMember.findOne({ groupId, pseudoUserId: memberId })
-      .populate("pseudoUserId");
+    const member = await GroupMember.findOne({ _id: memberId, groupId, role: "student" });
 
-    if (!member || !member.pseudoUserId) {
+    if (!member) {
       return res.status(404).send({ message: "Member not found." });
     }
-    const pseudoUser = member.pseudoUserId;
 
     return res.status(200).send({
       message: "Group member found successfully.",
       member: {
-        pseudoUserId: pseudoUser._id,
-        name: pseudoUser.name,
-        nickname: pseudoUser.nickname,
-        online: pseudoUser.onlineStatus,
+        memberId: member._id,
+        name: member.name,
+        nickname: member.nickname,
+        online: member.onlineStatus,
+        lastSeen: member.lastSeen || null,
       },
     });
   } catch (err) {

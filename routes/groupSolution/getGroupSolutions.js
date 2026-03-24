@@ -15,7 +15,7 @@ const Solution = require('../../models/solution');
  * @apiHeaderExample {String} Authorization Header Example
  *   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTk5OTEwY2QxMDgyMjA3Y2Y1ZGM2ZiIsImlhdCI6MTU3ODg0NDEwOSwiZXhwIjoxNTc4ODUwMTA5fQ.D4NKx6uT3   
  *  J329j7JrPst6p02d311u7AsXVCUEyvoiTo  
- * * @apiParam {String} solutionId id of the solution (URL param)
+ * @apiParam {String} solutionId id of the solution (URL param)
  *
  * @apiSuccess (Success 200) {String} message `Solution found successfully.`
  * @apiSuccess (Success 200) {Object} solution `{
@@ -30,7 +30,7 @@ const Solution = require('../../models/solution');
  * @apiError (On error) {Object} 404 `{"message": Solution not found."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const getSolution = async function(req, res){
+const getGroupSolutions = async function(req, res){
   try{
     var result = await Solution.find({});
     return res.status(200).send({
@@ -44,5 +44,5 @@ const getSolution = async function(req, res){
 };
 
 module.exports = {
-  getSolution
+  getGroupSolutions
 };

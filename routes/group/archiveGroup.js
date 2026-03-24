@@ -46,7 +46,7 @@ const archiveGroup = async function (req, res) {
     group.updatedAt = new Date();
     const result = await group.save();
 
-    const action = archived ? "archived" : "unarchived";
+    const action = archived ? "archived": "unarchived";
     return res.status(200).send({
       message: `Group ${action} successfully.`,
       group: result,

@@ -1,10 +1,8 @@
 "use strict";
 
 const crypto = require("crypto");
-const mongoose = require("mongoose");
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
-const PseudoUser = require("../../models/pseudoUser");
 
 /**
  * @api {post} /groups/join Join a group using access code and nickname
@@ -46,9 +44,10 @@ const joinGroup = async function (req, res) {
       return res.status(403).send({ message: "This group is archived and not accepting new members." });
     }
 
-    const student = await PseudoUser.findOne({ 
-      groupId: group._id, 
-      nickname: trimmedNickname 
+    const student = await GroupMember.findOne({
+      groupId: group._id,
+      nickname: trimmedNickname,
+      role: "student",
     });
 
     if (!student) {
@@ -65,26 +64,9 @@ const joinGroup = async function (req, res) {
     student.lastSeen = new Date();
     await student.save();
 
-    const existingMembership = await GroupMember.findOne({ 
-      groupId: group._id, 
-      pseudoUserId: student._id 
-    });
-
-    if (!existingMembership) {
-      const groupMember = new GroupMember({
-        _id: new mongoose.Types.ObjectId().toString(),
-        groupId: group._id,
-        userId: new mongoose.Types.ObjectId(),
-        pseudoUserId: student._id,
-        role: "student",
-        joinedAt: new Date(),
-      });
-      await groupMember.save();
-    }
-
     return res.status(200).send({
       message: "Successfully joined the group.",
-      pseudoUserId: student._id,
+      memberId: student._id,
       sessionToken,
       groupId: group._id,
       groupName: group.name,

@@ -5,7 +5,7 @@ const Group = require("../../models/group");
 const User = require("../../models/user");
 
 /**
- * @api {post} /groups Create group
+ * @api {post} /group Create group
  * @apiName postGroup
  * @apiDescription Create a group.
  * @apiGroup Group
@@ -57,7 +57,7 @@ const postGroup = async function (req, res) {
       group: result,
     });
   } catch (err) {
-    return res.status(500).send({ message: "Server error.", error: err.message });
+    return res.status(500).send({ message: "Server error. GEHT NICHT", error: err.message });
   }
 };
 

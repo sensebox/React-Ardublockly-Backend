@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const Progress = require("../../models/progress");
-const PseudoUser = require("../../models/pseudoUser");
+const GroupMember = require("../../models/groupMembers");
 const Tutorial = require("../../models/tutorial");
 
 /**
@@ -25,7 +25,7 @@ const Tutorial = require("../../models/tutorial");
  * @apiError (On error) {Object} 404 `{"message": "Tutorial not found."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const patchProgress = async function (req, res) {
+const patchTutorialProgress = async function (req, res) {
   try {
     const pseudoUserId = req.headers["x-pseudo-user-id"];
     const groupId = req.headers["x-group-id"];
@@ -40,7 +40,7 @@ const patchProgress = async function (req, res) {
       return res.status(400).send({ message: "Missing required fields (tutorialId, currentPage)." });
     }
 
-    const student = await PseudoUser.findOne({
+    const student = await GroupMember.findOne({
       _id: pseudoUserId,
       groupId,
       claimed: true,
@@ -103,5 +103,5 @@ const patchProgress = async function (req, res) {
 };
 
 module.exports = {
-  patchProgress,
+  patchTutorialProgress,
 };

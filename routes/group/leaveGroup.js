@@ -2,7 +2,6 @@
 
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
-const PseudoUser = require("../../models/pseudoUser");
 const Progress = require("../../models/progress");
 
 /**

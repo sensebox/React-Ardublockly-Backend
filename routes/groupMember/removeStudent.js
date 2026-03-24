@@ -1,8 +1,7 @@
 "use strict";
 
-const mongoose = require("mongoose");
 const Group = require("../../models/group");
-const PseudoUser = require("../../models/pseudoUser");
+const GroupMember = require("../../models/groupMembers");
 
 
 /**
@@ -11,7 +10,7 @@ const PseudoUser = require("../../models/pseudoUser");
  * @apiDescription Delete a student account. Only accessible by the teacher.
  * @apiGroup GroupMember
  */
-const deleteStudentAccount = async function (req, res) {
+const removeStudent = async function (req, res) {
   try {
     const userId = req.user.id;
     const { groupId, studentId } = req.params;
@@ -29,7 +28,7 @@ const deleteStudentAccount = async function (req, res) {
       return res.status(403).send({ message: "No permission to delete students in this group." });
     }
 
-    const deleted = await PseudoUser.findOneAndDelete({ _id: studentId, groupId });
+    const deleted = await GroupMember.findOneAndDelete({ _id: studentId, groupId, role: "student" });
     if (!deleted) {
       return res.status(404).send({ message: "Student account not found." });
     }
@@ -43,5 +42,5 @@ const deleteStudentAccount = async function (req, res) {
 };
 
 module.exports = {
-  deleteStudentAccount,
+  removeStudent,
 };

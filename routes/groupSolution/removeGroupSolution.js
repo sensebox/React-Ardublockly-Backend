@@ -4,7 +4,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const Solution = require('../../models/solution');
-const PseudoUser = require('../../models/pseudoUser');
 
 /**
  * @api {delete} /solutions/:solutionId Delete a solution
@@ -24,7 +23,7 @@ const PseudoUser = require('../../models/pseudoUser');
  * @apiError (On error) {Object} 404 `{"message": Solution not found."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const deleteSolution = async function(req, res){
+const removeGroupSolution = async function(req, res){
   try{
     var result = await Solution.findById(req.params.solutionId);
     var pseudoUserId = req.pseudoUserId.id;
@@ -51,5 +50,5 @@ const deleteSolution = async function(req, res){
 };
 
 module.exports = {
-  deleteSolution
+  removeGroupSolution
 };  
