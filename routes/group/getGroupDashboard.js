@@ -2,6 +2,7 @@
 
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
+const GroupTutorial = require("../../models/groupTutorial");
 
 /**
  * @api {get} /groups/:groupId/dashboard Get group dashboard with online status

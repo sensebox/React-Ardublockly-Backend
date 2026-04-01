@@ -1,20 +1,20 @@
 "use strict";
 
 var express = require('express');
-var GroupTutorialRouter = express.Router();
+var GroupTutorialRouter = express.Router({ mergeParams: true });
 
 const { userAuthorization } = require('../../helper/userAuthorization');
 
-GroupTutorialRouter.route('/:groupId/postTutorials')
+GroupTutorialRouter.route('/postTutorials')
   .post(userAuthorization, require('./postGroupTutorial').postGroupTutorial);
 
-GroupTutorialRouter.route('/:groupId/getAllTutorials')
+GroupTutorialRouter.route('/getAllTutorials')
   .get(userAuthorization, require('./getGroupTutorials').getGroupTutorials);
 
-GroupTutorialRouter.route('/:groupId/getTutorialById/:tutorialId')
+GroupTutorialRouter.route('/getTutorialById/:tutorialId')
   .get(userAuthorization, require('./getGroupTutorialById').getGroupTutorialById);
 
-GroupTutorialRouter.route('/:groupId/removeGroupTutorial/')
+GroupTutorialRouter.route('/removeGroupTutorial')
   .delete(userAuthorization, require('./removeGroupTutorial').removeGroupTutorial);  
 
 module.exports = GroupTutorialRouter;

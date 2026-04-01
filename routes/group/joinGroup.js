@@ -59,7 +59,6 @@ const joinGroup = async function (req, res) {
     }
 
     student.claimed = true;
-    student.sessionToken = sessionToken;
     student.onlineStatus = true;
     student.lastSeen = new Date();
     await student.save();
@@ -67,7 +66,6 @@ const joinGroup = async function (req, res) {
     return res.status(200).send({
       message: "Successfully joined the group.",
       memberId: student._id,
-      sessionToken,
       groupId: group._id,
       groupName: group.name,
       nickname: student.nickname,

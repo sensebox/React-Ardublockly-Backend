@@ -1,22 +1,23 @@
 "use strict";
 
 var express = require('express');
-var GroupMemberRouter = express.Router();
+var GroupMemberRouter = express.Router({ mergeParams: true });
 
 const { userAuthorization } = require('../../helper/userAuthorization');
 
-GroupMemberRouter.route('/createStudent/:groupId')
+GroupMemberRouter.route('/createStudent')
   .post(userAuthorization, require('./createStudent').createStudent);
 
-GroupMemberRouter.route('/members/:groupId')
+GroupMemberRouter.route('/getAll')
   .get(userAuthorization, require('./getGroupMembers').getGroupMembers);
 
-GroupMemberRouter.route('/members/:memberId/:groupId')
+GroupMemberRouter.route('/:memberId/')
   .get(userAuthorization, require('./getMemberById').getMemberById);
 
-GroupMemberRouter.route('/removeStudent/:groupId')
+GroupMemberRouter.route('/removeStudent')
   .delete(userAuthorization, require('./removeStudent').removeStudent);
 
-
+  GroupMemberRouter.route('/dashboard')
+  .get(userAuthorization, require('./getGroupMemberDashboard').getGroupMemberDashboard);
 
 module.exports = GroupMemberRouter;

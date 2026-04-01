@@ -1,17 +1,17 @@
 "use strict";
 
 var express = require('express');
-var GroupSolutionRouter = express.Router();
+var GroupSolutionRouter = express.Router({ mergeParams: true });
 
 const { userAuthorization } = require('../../helper/userAuthorization');
 
-GroupSolutionRouter.route('/:groupId/postGroupSolution')
-  .post(userAuthorization, require('./postGroupSolutions').postGroupSolution); 
+GroupSolutionRouter.route('/postGroupSolution')
+  .post(userAuthorization, require('./postGroupSolutions').postGroupSolution);
 
-GroupSolutionRouter.route('/:groupId/getAllGroupSolutions')
+GroupSolutionRouter.route('/getAllGroupSolutions')
   .get(userAuthorization, require('./getGroupSolutions').getGroupSolutions);
 
-GroupSolutionRouter.route('/:groupId/removeGroupSolution')
+GroupSolutionRouter.route('/removeGroupSolution')
   .delete(userAuthorization, require('./removeGroupSolution').removeGroupSolution);     
 
 module.exports = GroupSolutionRouter;

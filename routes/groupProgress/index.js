@@ -1,11 +1,11 @@
 "use strict";
 
 var express = require('express');
-var GroupProgressRouter = express.Router();
+var GroupProgressRouter = express.Router({ mergeParams: true });
 
 const { userAuthorization } = require('../../helper/userAuthorization');
 
-GroupProgressRouter.route('/:groupId/patchTutorialProgress')
+GroupProgressRouter.route('/patchTutorialProgress')
   .put(userAuthorization, require('./patchTutorialProgress').patchTutorialProgress);
 
 
