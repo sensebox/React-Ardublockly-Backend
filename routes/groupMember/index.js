@@ -11,13 +11,19 @@ GroupMemberRouter.route('/createStudent')
 GroupMemberRouter.route('/getAll')
   .get(userAuthorization, require('./getGroupMembers').getGroupMembers);
 
-GroupMemberRouter.route('/:memberId/')
+GroupMemberRouter.route('/getSingleMember/:memberId/')
   .get(userAuthorization, require('./getMemberById').getMemberById);
 
 GroupMemberRouter.route('/removeStudent')
   .delete(userAuthorization, require('./removeStudent').removeStudent);
 
-  GroupMemberRouter.route('/dashboard')
+  GroupMemberRouter.route('/dashboard/:memberId')
   .get(userAuthorization, require('./getGroupMemberDashboard').getGroupMemberDashboard);
+
+  GroupMemberRouter.route('/heartbeat/:memberId')
+  .post(require('./HeartbeatMember').heartbeatMember);
+
+  GroupMemberRouter.route('/leave')
+  .put(userAuthorization, require('./leaveGroup').leaveGroup);
 
 module.exports = GroupMemberRouter;

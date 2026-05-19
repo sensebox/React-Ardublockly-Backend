@@ -17,17 +17,17 @@ const Group = require("../../models/group");
  * @apiError (On error) {Object} 401 `{"message": "Invalid session."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const studentHeartbeat = async function (req, res) {
+const heartbeatMember = async function (req, res) {
   try {
 
-    const { pseudoUserId, groupId } = req.body;
+    const { groupMember, groupId } = req.body;
 
-    if (!pseudoUserId || !groupId) {
+    if (!groupMember || !groupId) {
       return res.status(400).send({ message: "Missing required fields." });
     }
 
     await GroupMember.findOneAndUpdate(
-      { _id: pseudoUserId, groupId: groupId },
+      { _id: groupMember, groupId: groupId },
       { lastSeen: new Date() }
     );
 
@@ -42,6 +42,6 @@ const studentHeartbeat = async function (req, res) {
 };
 
 module.exports = {
-  studentHeartbeat,
+  heartbeatMember,
 };
 

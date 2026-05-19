@@ -48,7 +48,7 @@ const getGroupTutorialById = async function (req, res) {
       return res.status(404).send({ message: "Tutorial not released for this group." });
     }
 
-    const tutorial = await GroupTutorial.findById(tutorialId);
+    const tutorial = await Tutorial.findById(tutorialId);
     if (!tutorial) {
       return res.status(404).send({ message: "Tutorial not found." });
     }

@@ -3,9 +3,9 @@
 const GroupMember = require("../../models/groupMembers");
 
 /**
- * @api {patch} /progress Update student progress
- * @apiName patchProgress
- * @apiDescription Update the current progress for a student. Uses student session authentication.
+ * @api {get} /progress/:groupId/:memberId Get tutorial progress
+ * @apiName getTutorialProgress
+ * @apiDescription Get the current progress for a student. Uses student session authentication.
  * @apiGroup Progress
  *
  * @apiHeader {String} x-pseudo-user-id Student's pseudo user ID
@@ -22,27 +22,31 @@ const GroupMember = require("../../models/groupMembers");
  * @apiError (On error) {Object} 404 `{"message": "Tutorial not found."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const patchTutorialProgress = async function (req, res) {
+const getTutorialProgress = async function (req, res) {
   try {
     const { groupId, memberId } = req.params;
-    const { tutorialId, tutorialTitle, currentStep, totalSteps } = req.body;
 
-    const member = await GroupMember.findOneAndUpdate(
-      { _id: memberId, groupId },
-      { tutorialId, currentTutorialTitle: tutorialTitle, currentStep, totalSteps },
-      { new: true }
-    );
+    const member = await GroupMember.findById(memberId)
+      .populate("tutorialId", "title steps");
 
     if (!member) {
       return res.status(404).send({ message: "Member not found." });
     }
 
-    return res.status(200).send({ message: "Progress updated.", member });
+    if (member.groupId.toString() !== groupId) {
+      return res.status(403).send({ message: "Member does not belong to this group." });
+    }
+
+    return res.status(200).send({
+      tutorialTitle: member.tutorialId?.title || null,
+      currentStep: member.currentStep || null,
+      totalSteps: member.tutorialId?.steps?.length || null,
+    });
   } catch (err) {
     return res.status(500).send({ message: "Server error.", error: err.message });
   }
 };
 
 module.exports = {
-  patchTutorialProgress,
+  getTutorialProgress,
 };

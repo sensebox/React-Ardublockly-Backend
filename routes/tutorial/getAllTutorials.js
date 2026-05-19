@@ -49,6 +49,10 @@ const Tutorial = require("../../models/tutorial");
 const getAllTutorials = async function (req, res) {
   try {
     if (req.user.role === "admin") {
+		console.log("DB name:", Tutorial.db.name);
+		console.log("Tutorial collectionName from schema:", Tutorial.collection.name);
+const count = await Tutorial.countDocuments();
+console.log("Count:", count);
       var result = await Tutorial.find({});
       return res.status(200).send({
         message: "Tutorials found successfully.",

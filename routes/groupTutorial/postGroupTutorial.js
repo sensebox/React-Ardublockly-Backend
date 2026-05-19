@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const GroupTutorial = require("../../models/groupTutorial");
 const Group = require("../../models/group");
-const Tutorial = require("../../models/tutorial");
+const Tutorial = require('../../models/tutorial');
 
 /**
  * @api {post} /groups/:groupId/tutorials Release a tutorial for a group
@@ -25,9 +25,9 @@ const Tutorial = require("../../models/tutorial");
  */
 const postGroupTutorial = async function (req, res) {
   try {
-    const userId = req.user.id;
+
     const groupId = req.params.groupId;
-    const { tutorialId } = req.body;
+    const tutorialId = req.body.tutorialId || req.params.tutorialId;
 
     if (!groupId || !tutorialId) {
       return res.status(400).send({ message: "Missing required fields." });
@@ -36,15 +36,6 @@ const postGroupTutorial = async function (req, res) {
     const group = await Group.findById(groupId);
     if (!group) {
       return res.status(404).send({ message: "Group not found." });
-    }
-
-    if (group.teacherId.toString() !== userId) {
-      return res.status(403).send({ message: "No permission to release tutorials for this group." });
-    }
-
-    const tutorial = await Tutorial.findById(tutorialId);
-    if (!tutorial) {
-      return res.status(404).send({ message: "Tutorial not found." });
     }
 
     const existingRelease = await GroupTutorial.findOne({ groupId, tutorialId });
@@ -56,9 +47,11 @@ const postGroupTutorial = async function (req, res) {
       _id: new mongoose.Types.ObjectId().toString(),
       groupId,
       tutorialId,
-      assignedBy: userId,
       assignedAt: new Date(),
     });
+
+      const tutorial = await Tutorial.findById(tutorialId);
+  console.log("Tutorial exists?", tutorial?._id, "| searched for:", tutorialId);
 
     const result = await groupTutorial.save();
 

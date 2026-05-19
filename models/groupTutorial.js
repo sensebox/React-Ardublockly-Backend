@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const groupTutorialSchema = new Schema(
   {
-    _id: { type: String, required: true },
+    _id: { type: String }, 
     groupId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Group",
@@ -18,7 +18,7 @@ const groupTutorialSchema = new Schema(
     assignedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
   },
   {

@@ -46,14 +46,14 @@ const getMemberById = async function (req, res) {
       return res.status(404).send({ message: "Member not found." });
     }
 
+    // Calculate online status: online if lastSeen within last 60 seconds
+    const onlineStatus = member.lastSeen && (Date.now() - new Date(member.lastSeen).getTime()) < 60000;
+
     return res.status(200).send({
       message: "Group member found successfully.",
       member: {
-        memberId: member._id,
-        name: member.name,
-        nickname: member.nickname,
-        online: member.onlineStatus,
-        lastSeen: member.lastSeen || null,
+        ...member.toObject(),
+        onlineStatus,
       },
     });
   } catch (err) {

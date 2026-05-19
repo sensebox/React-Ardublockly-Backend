@@ -1,7 +1,4 @@
-  "use strict";
-
-const express = require('express');
-const mongoose = require('mongoose');
+"use strict";
 
 const Solution = require('../../models/solution');
 
@@ -32,10 +29,21 @@ const Solution = require('../../models/solution');
  */
 const getGroupSolutions = async function(req, res){
   try{
-    var result = await Solution.find({});
+    const { groupId } = req.params;
+    const result = await Solution.find({ groupId })
+      .populate('tutorialId', 'title')
+      .sort({ updatedAt: -1 })
+      .lean();
+
+    const solutions = result.map((item) => ({
+      ...item,
+      tutorialTitle: item.tutorialId && item.tutorialId.title ? item.tutorialId.title : null,
+      tutorialId: item.tutorialId && item.tutorialId._id ? item.tutorialId._id : item.tutorialId,
+    }));
+
     return res.status(200).send({
       message: 'Solutions found successfully.',
-      solutions: result
+      solutions,
     });
   }
   catch(err){
@@ -44,5 +52,5 @@ const getGroupSolutions = async function(req, res){
 };
 
 module.exports = {
-  getGroupSolutions
+  getGroupSolutions,
 };

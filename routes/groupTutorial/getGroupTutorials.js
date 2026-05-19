@@ -3,6 +3,8 @@
 const GroupTutorial = require("../../models/groupTutorial");
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
+const Tutorial = require('../../models/tutorial');
+const mongoose = require("mongoose");
 
 /**
  * @api {get} /groups/:groupId/tutorials Get released tutorials for a group
@@ -32,18 +34,33 @@ const getGroupTutorials = async function (req, res) {
     if (!group) {
       return res.status(404).send({ message: "Group not found." });
     }
+    console.log("Gefundene Gruppe:", group);
 
-    const releasedTutorials = await GroupTutorial.find({ groupId })
-      .populate({
-        path: "tutorialId",
-        select: "title subtitle difficulty duration hardware subjects topics steps",
-      })
-      .populate("assignedBy", "name");
 
-    return res.status(200).send({
-      message: "Released tutorials found successfully.",
-      tutorials: releasedTutorials,
-    });
+
+    
+    const groupTutorials = await GroupTutorial.find({ groupId });
+
+console.log("GRUPPENTUTORISLD:" , groupTutorials);
+    const tutorialIds = groupTutorials.map((gt) => gt.tutorialId._id.toString());
+console.log("Tutorial IIIIDs:", tutorialIds);
+    // Debug-Logs
+    console.log("Mongoose sucht in Collection:", Tutorial.collection.name);
+    console.log("Suche nach ID:", tutorialIds[0], "| type:", typeof tutorialIds[0]);
+    const exists = await Tutorial.collection.findOne({ 
+  _id: tutorialIds[0] 
+});
+
+// Alle IDs in der Collection ausgeben
+const allIds = await Tutorial.collection.find({}, { projection: { _id: 1 } }).toArray();
+console.log("Alle Tutorial-IDs in DB:", allIds.map(t => t._id.toString()));
+
+const tutorial = await Tutorial.find({_id: '69e8cbea84e896f35ebda8b1'}).exec();
+console.log("Tutorial gefunden mit findById:", tutorial);
+
+    const tutorials = await Tutorial.find({_id: { $in: tutorialIds } });
+
+    return res.status(200).send({ tutorials });
   } catch (err) {
     return res.status(500).send({ message: "Server error.", error: err.message });
   }

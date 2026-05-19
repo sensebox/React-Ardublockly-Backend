@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const GroupMember = require("../../models/groupMembers");
+const Solution = require("../../models/solution");
 
 /**
  * @api {post} /solutions Create a solution for a tutorial
@@ -29,38 +30,44 @@ const GroupMember = require("../../models/groupMembers");
  * @apiError (On error) {Object} 403 `{"message": No permission creating the solution."}`
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
-const postGroupSolution = async function(req, res){
+const postGroupSolution = async function (req, res) {
+  try {
+    const { groupId, memberId } = req.params;
+    const { tutorialId, blocklyXml, userId } = req.body;
+    const effectiveUserId = memberId || userId;
 
-  try{
-    var student = await GroupMember.findOne({id : req.user.id});
-    if(student.role !== 'student'){
-      const body = {
-        _id: new mongoose.Types.ObjectId(),
-        tutorialId: req.body.tutorialId,
-        groupId: req.body.groupId,
-        blocklyXml: req.body.xml,
-        xml: req.body.xml,
-        studentId: student._id,
-      };
-      const solution = new Solution(body);
-      const savedSolution = await solution.save();
-      return res.status(201).send({
-        message: 'Solution is successfully created.',
-        solution: savedSolution
-      });
+    if (!groupId || !tutorialId || !blocklyXml || !effectiveUserId) {
+      return res.status(400).send({ message: "Missing required fields." });
     }
-    else {
-      return res.status(403).send({
-        message: 'No permission creating the solution.',
-      });
+
+    const student = await GroupMember.findOne({ _id: effectiveUserId, groupId });
+    if (!student) {
+      return res.status(404).send({ message: "Student not found in this group." });
     }
-  }
-  catch(err) {
-    console.log(err);
-    return res.status(500).send(err);
+
+    if (student.role !== "student") {
+      return res.status(403).send({ message: "Only students can submit solutions." });
+    }
+
+    const solution = await Solution.create({
+      _id: new mongoose.Types.ObjectId().toString(), // nur wenn _id im Schema String ist
+      userId: student._id,
+      groupId,
+      tutorialId,
+      blocklyXml,
+      publishedAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    return res.status(201).send({
+      message: "Solution is successfully created.",
+      solution,
+    });
+  } catch (err) {
+    return res.status(500).send({ message: "Server error.", error: err.message });
   }
 };
 
 module.exports = {
-  postGroupSolution
-      };
+  postGroupSolution,
+};

@@ -34,7 +34,7 @@ const getAllGroup = async function (req, res) {
   const result = await Group.find({});
      console.log(result);
     return res.status(200).send({
-      message: "Groups found successfully.",
+      message: "Get All Groups found successfully.",
       groups: result,
     });
   } catch (err) {

@@ -20,13 +20,6 @@ const GroupMember = require("../../models/groupMembers");
  * @apiError (On error) {Object} 500 Complications during querying the database.
  */
 
-const ONLINE_THRESHOLD = 500000;
-
-function isOnline(lastSeen) {
-  if (!lastSeen) return false;
-  return Date.now() - new Date(lastSeen).getTime() < ONLINE_THRESHOLD;
-}
-
 const getGroupMembers = async function (req, res) {
   try {
     const userId = req.user.id;
@@ -45,21 +38,16 @@ const getGroupMembers = async function (req, res) {
       return res.status(403).send({ message: "No permission to view members of this group." });
     }
 
-    const members = await GroupMember.find({ groupId, role: "student" });
+    const members = await GroupMember.find({ groupId });
 
-    const formattedMembers = members.map((member) => {
-      return {
-        memberId: member._id,
-        name: member.name,
-        nickname: member.nickname,
-        online: isOnline(member.lastSeen),
-        lastSeen: member.lastSeen || null,
-      };
-    });
+    const membersWithStatus = members.map(member => ({
+      ...member.toObject(),
+      onlineStatus: member.lastSeen && (Date.now() - new Date(member.lastSeen).getTime()) < 60000
+    }));
 
     return res.status(200).send({
       message: "Group members found successfully.",
-      members: formattedMembers,
+      members: membersWithStatus,
     });
   } catch (err) {
     return res.status(500).send({ message: "Server error.", error: err.message });

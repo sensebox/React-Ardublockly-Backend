@@ -22,7 +22,7 @@ const GroupTutorial = require("../../models/groupTutorial");
  */
 const getGroupMemberDashboard = async function (req, res) {
   try {
-      const groupMember = req.GroupMember.id;
+      const groupMember = req.params.memberId;
       const groupId = req.params.groupId;
   
       if (!groupId) {
@@ -34,19 +34,13 @@ const getGroupMemberDashboard = async function (req, res) {
         return res.status(404).send({ message: "Group not found." });
       }
   
-      const groupTurorials = await GroupTutorial.find({ groupId });
+      const groupTutorials = await GroupTutorial.find({ groupId });
   
       return res.status(200).send({
-        message: "Dashboard data retrieved successfully.",
-        members: groupMember,
-        tutorials: groupTurorials.map((gt) => gt.tutorialId),
-        pendingMembers: pendingStudents,
-        summary: {
-          total: students.length,
-          active: activeStudents.length,
-          pending: pendingStudents.length,
-          online: activeStudents.filter((s) => s.online).length,
-        },
+      message: "Dashboard data retrieved successfully.",
+      memberId: groupMember,
+      memberName: groupMember.name,
+      tutorials: groupTutorials.map((gt) => gt.tutorialId),
       });
     } catch (err) {
       return res.status(500).send({ message: "Server error.", error: err.message });

@@ -32,7 +32,7 @@ const getGroup = async function (req, res) {
   try {
     const result = await Group.find({ teacherId: req.user.id });
     return res.status(200).send({
-      message: "Groups found successfully.",
+      message: "Group one",
       groups: result,
     });
   } catch (err) {

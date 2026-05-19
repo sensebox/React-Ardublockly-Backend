@@ -5,7 +5,7 @@ var GroupTutorialRouter = express.Router({ mergeParams: true });
 
 const { userAuthorization } = require('../../helper/userAuthorization');
 
-GroupTutorialRouter.route('/postTutorials')
+GroupTutorialRouter.route('/:tutorialId/postTutorial')
   .post(userAuthorization, require('./postGroupTutorial').postGroupTutorial);
 
 GroupTutorialRouter.route('/getAllTutorials')
@@ -14,7 +14,7 @@ GroupTutorialRouter.route('/getAllTutorials')
 GroupTutorialRouter.route('/getTutorialById/:tutorialId')
   .get(userAuthorization, require('./getGroupTutorialById').getGroupTutorialById);
 
-GroupTutorialRouter.route('/removeGroupTutorial')
+GroupTutorialRouter.route('/:tutorialId/removeGroupTutorial')
   .delete(userAuthorization, require('./removeGroupTutorial').removeGroupTutorial);  
 
 module.exports = GroupTutorialRouter;

@@ -25,7 +25,7 @@ const getGroupById = async function (req, res) {
     try {
     const result = await Group.findById(req.params.groupId);
     return res.status(200).send({
-      message: "Groups found successfully.",
+      message: "Group by Id ",
       groups: result,
     });
   } catch (err) {

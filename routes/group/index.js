@@ -14,6 +14,7 @@ var groupProgressRouter = require('../groupProgress/index');
 GroupRouter.use('/:groupId/member', groupMemberRouter);
 GroupRouter.use('/:groupId/tutorial', groupTutorialRouter);
 GroupRouter.use('/:groupId/solution', groupSolutionRouter);
+GroupRouter.use('/:groupId/solutions', groupSolutionRouter);
 GroupRouter.use('/:groupId/progress', groupProgressRouter);
 
 GroupRouter.route('/')
@@ -22,7 +23,7 @@ GroupRouter.route('/')
 GroupRouter.route('/:groupId/archive')
   .patch(userAuthorization, require('./archiveGroup').archiveGroup);
 
-GroupRouter.route('/:groupId/dashboard')
+GroupRouter.route('/dashboard/:groupId')
   .get(userAuthorization, require('./getGroupDashboard').getGroupDashboard);
 
 GroupRouter.route('/:groupId/leave/delete')
@@ -31,7 +32,7 @@ GroupRouter.route('/:groupId/leave/delete')
 GroupRouter.route('/join')
   .post(require('./joinGroup').joinGroup);
 
-GroupRouter.route('/:groupId')
+GroupRouter.route('/getOne/:groupId')
   .get(userAuthorization, require('./getGroupById').getGroupById);
 
 GroupRouter.route('/getAll')

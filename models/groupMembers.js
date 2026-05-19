@@ -21,6 +21,8 @@ const groupMemberSchema = new Schema(
     claimed: { type: Boolean, default: false },
     sessionToken: { type: String },
     joinedAt: { type: Date, default: Date.now },
+    tutorialId: { type: mongoose.Schema.Types.ObjectId, ref: "Tutorial", default: null }, // NEU
+    currentStep: { type: Number, default: null },    
   },
   {
     timestamps: true,

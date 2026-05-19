@@ -2,19 +2,19 @@
 
 const Group = require("../../models/group");
 const GroupMember = require("../../models/groupMembers");
-const Progress = require("../../models/progress");
 
 /**
  * @api {delete} /groups/:groupId/leave Leave a group
  * @apiName leaveGroup
- * @apiDescription Leave a group as a student. Removes membership and associated data.
+ * @apiDescription Leave a group as a student. Resets claimed status so the student can rejoin later.
  * @apiGroup Group
  *
- * @apiHeader {String} Authorization allows to send a valid JSON Web Token along with this request with `Bearer` prefix.
  * @apiParam {String} groupId id of the group (URL param)
+ * @apiParam {String} memberId id of the member (body param)
  *
  * @apiSuccess (Success 200) {String} message `Successfully left the group.`
  * @apiError (On error) {Object} 400 `{"message": "Missing groupId parameter."}`
+ * @apiError (On error) {Object} 400 `{"message": "Missing memberId parameter."}`
  * @apiError (On error) {Object} 403 `{"message": "Teachers cannot leave their own group."}`
  * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
  * @apiError (On error) {Object} 404 `{"message": "You are not a member of this group."}`
@@ -22,11 +22,15 @@ const Progress = require("../../models/progress");
  */
 const leaveGroup = async function (req, res) {
   try {
-    const userId = req.user.id;
+    const { memberId } = req.body;
     const groupId = req.params.groupId;
 
     if (!groupId) {
       return res.status(400).send({ message: "Missing groupId parameter." });
+    }
+
+    if (!memberId) {
+      return res.status(400).send({ message: "Missing memberId parameter." });
     }
 
     const group = await Group.findById(groupId);
@@ -34,14 +38,22 @@ const leaveGroup = async function (req, res) {
       return res.status(404).send({ message: "Group not found." });
     }
 
-    if (group.teacherId.toString() === userId) {
-      return res.status(403).send({ message: "Teachers cannot leave their own group. Use delete instead." });
-    }
-
-    const membership = await GroupMember.findOne({ groupId, userId });
-    if (!membership) {
+    // Find the member in GroupMember collection
+    const member = await GroupMember.findOne({ _id: memberId, groupId });
+    if (!member) {
       return res.status(404).send({ message: "You are not a member of this group." });
     }
+
+    // Teachers cannot leave their own group
+    if (member.role === "teacher") {
+      return res.status(403).send({ message: "Teachers cannot leave their own group." });
+    }
+
+    // Reset claimed status so the student can rejoin later
+    member.claimed = false;
+    member.onlineStatus = false;
+    member.sessionToken = null;
+    await member.save();
 
     return res.status(200).send({
       message: "Successfully left the group.",
