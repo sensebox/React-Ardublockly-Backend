@@ -10,7 +10,7 @@ const mongoPassword = process.env.MONGO_PASSWORD;
 
 const connectMongoDB = async function(cb) {
   // set up default ("Docker") mongoose connection
-  await mongoose.connect(`mongodb://${mongoUsername}:${mongoPassword}@localhost:27017/${process.env.MONGO_DBNAME}`, {
+  await mongoose.connect(`mongodb://${mongoUsername}:${mongoPassword}@mongo:27017/${process.env.MONGO_DBNAME}`, {
     authSource: 'admin',
     useNewUrlParser: true,
     useCreateIndex: true,
