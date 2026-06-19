@@ -3,9 +3,9 @@
 const GroupMember = require("../../models/groupMembers");
 
 /**
- * @api {patch} /progress Update student progress
+ * @api {patch} /progress Update student tutorial progress
  * @apiName patchProgress
- * @apiDescription Update the current progress for a student. Uses student session authentication.
+ * @apiDescription Update the current progress for a student - tutorial. Uses student session authentication.
  * @apiGroup Progress
  *
  * @apiHeader {String} x-pseudo-user-id Student's pseudo user ID
