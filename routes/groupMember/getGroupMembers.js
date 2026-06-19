@@ -41,8 +41,7 @@ const getGroupMembers = async function (req, res) {
     const members = await GroupMember.find({ groupId });
 
     const membersWithStatus = members.map(member => ({
-      ...member.toObject(),
-      onlineStatus: member.lastSeen && (Date.now() - new Date(member.lastSeen).getTime()) < 60000
+      ...member.toObject()
     }));
 
     return res.status(200).send({

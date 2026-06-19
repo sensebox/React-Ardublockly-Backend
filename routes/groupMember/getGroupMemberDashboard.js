@@ -16,9 +16,8 @@ const GroupTutorial = require("../../models/groupTutorial");
  * @apiSuccess (Success 200) {String} message `Dashboard data retrieved successfully.`
  * @apiSuccess (Success 200) {Array} members Array of member status objects
  * @apiError (On error) {Object} 400 `{"message": "Missing groupId parameter."}`
- * @apiError (On error) {Object} 403 `{"message": "No permission to view this dashboard."}`
  * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getGroupMemberDashboard = async function (req, res) {
   try {

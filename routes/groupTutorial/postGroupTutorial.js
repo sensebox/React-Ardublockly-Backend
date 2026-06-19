@@ -18,10 +18,9 @@ const Tutorial = require('../../models/tutorial');
  * @apiSuccess (Success 201) {String} message `Tutorial released successfully.`
  * @apiSuccess (Success 201) {Object} groupTutorial The created group tutorial object
  * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
- * @apiError (On error) {Object} 403 `{"message": "No permission to release tutorials for this group."}`
  * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
  * @apiError (On error) {Object} 409 `{"message": "Tutorial already released for this group."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const postGroupTutorial = async function (req, res) {
   try {
@@ -50,8 +49,7 @@ const postGroupTutorial = async function (req, res) {
       assignedAt: new Date(),
     });
 
-      const tutorial = await Tutorial.findById(tutorialId);
-  console.log("Tutorial exists?", tutorial?._id, "| searched for:", tutorialId);
+    const tutorial = await Tutorial.findById(tutorialId);
 
     const result = await groupTutorial.save();
 

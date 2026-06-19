@@ -18,9 +18,8 @@ const mongoose = require("mongoose");
  * @apiSuccess (Success 200) {String} message `Released tutorials found successfully.`
  * @apiSuccess (Success 200) {Array} tutorials Array of released tutorial objects
  * @apiError (On error) {Object} 400 `{"message": "Missing groupId parameter."}`
- * @apiError (On error) {Object} 403 `{"message": "No permission to access this group."}`
  * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getGroupTutorials = async function (req, res) {
   try {
@@ -34,29 +33,17 @@ const getGroupTutorials = async function (req, res) {
     if (!group) {
       return res.status(404).send({ message: "Group not found." });
     }
-    console.log("Gefundene Gruppe:", group);
 
-
-
-    
     const groupTutorials = await GroupTutorial.find({ groupId });
-
-console.log("GRUPPENTUTORISLD:" , groupTutorials);
     const tutorialIds = groupTutorials.map((gt) => gt.tutorialId._id.toString());
-console.log("Tutorial IIIIDs:", tutorialIds);
-    // Debug-Logs
-    console.log("Mongoose sucht in Collection:", Tutorial.collection.name);
-    console.log("Suche nach ID:", tutorialIds[0], "| type:", typeof tutorialIds[0]);
     const exists = await Tutorial.collection.findOne({ 
   _id: tutorialIds[0] 
 });
 
 // Alle IDs in der Collection ausgeben
-const allIds = await Tutorial.collection.find({}, { projection: { _id: 1 } }).toArray();
-console.log("Alle Tutorial-IDs in DB:", allIds.map(t => t._id.toString()));
+  const allIds = await Tutorial.collection.find({}, { projection: { _id: 1 } }).toArray();
 
-const tutorial = await Tutorial.find({_id: '69e8cbea84e896f35ebda8b1'}).exec();
-console.log("Tutorial gefunden mit findById:", tutorial);
+  const tutorial = await Tutorial.find({_id: '69e8cbea84e896f35ebda8b1'}).exec();
 
     const tutorials = await Tutorial.find({_id: { $in: tutorialIds } });
 

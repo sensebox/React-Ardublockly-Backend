@@ -29,8 +29,10 @@ const Group = require("../../models/group");
         "__v": 0
     }`
  *
+ * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
  * @apiError (On error) {Object} 403 `{"message": No permission updating the group."}`
- * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const putGroup = async function (req, res) {
   try {
@@ -39,7 +41,7 @@ const putGroup = async function (req, res) {
     const { name } = req.body;
 
     if (!groupId || !name || typeof name !== "string" || !name.trim()) {
-      return res.status(400).send({ message: "Missing required fields." });
+      return res.status(400).send({ message: "Missing required fields.", groupId, name });
     }
 
     const group = await Group.findById(groupId);

@@ -27,8 +27,10 @@ const Solution = require("../../models/solution");
         "__v": 0
     }`
  *
- * @apiError (On error) {Object} 403 `{"message": No permission creating the solution."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
+ * @apiError (On error) {Object} 403 `{"message": "Only students can submit solutions."}`
+ * @apiError (On error) {Object} 404 `{"message": "Student not found in this group."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const postGroupSolution = async function (req, res) {
   try {

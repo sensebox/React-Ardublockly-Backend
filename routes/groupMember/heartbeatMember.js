@@ -14,8 +14,8 @@ const Group = require("../../models/group");
  * @apiParam {String} groupId The group ID
  *
  * @apiSuccess (Success 200) {String} message `Heartbeat received.`
- * @apiError (On error) {Object} 401 `{"message": "Invalid session."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const heartbeatMember = async function (req, res) {
   try {

@@ -32,7 +32,6 @@ const mongoose = require("mongoose");
 const getAllGroup = async function (req, res) {
   try {
   const result = await Group.find({});
-     console.log(result);
     return res.status(200).send({
       message: "Get All Groups found successfully.",
       groups: result,

@@ -16,10 +16,7 @@ const GroupMember = require("../../models/groupMembers");
  * @apiSuccess (Success 200) {String} message `Group found successfully.`
  * @apiSuccess (Success 200) {Object} group The group object
  * @apiSuccess (Success 200) {Boolean} isTeacher Whether the user is the teacher of this group
- * @apiError (On error) {Object} 400 `{"message": "Missing groupId parameter."}`
- * @apiError (On error) {Object} 403 `{"message": "No permission to access this group."}`
- * @apiError (On error) {Object} 404 `{"message": "Group not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getGroupById = async function (req, res) {
     try {

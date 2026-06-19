@@ -1,8 +1,5 @@
 "use strict";
 
-const express = require('express');
-const mongoose = require('mongoose');
-
 const Solution = require('../../models/solution');
 
 /**
@@ -25,10 +22,16 @@ const Solution = require('../../models/solution');
  */
 const removeGroupSolution = async function(req, res){
   try{
-    var result = await Solution.findById(req.params.solutionId);
-    var pseudoUserId = req.pseudoUserId.id;
+    const result = await Solution.findById(req.params.solutionId);
+    if(!result){
+      return res.status(404).send({
+        message: 'Solution not found.',
+      });
+    }
+
+    const pseudoUserId = req.pseudoUserId.id;
     if(pseudoUserId === result.studentId.toString()){
-      var solution = await Solution.deleteOne({_id: req.params.solutionId});
+      const solution = await Solution.deleteOne({_id: req.params.solutionId});
       if(solution && solution.deletedCount > 0){
         return  res.status(200).send({
           message: 'Solution deleted successfully.',
@@ -38,11 +41,10 @@ const removeGroupSolution = async function(req, res){
         message: 'Solution not found.',
       });
     }
-    else {
-      return res.status(403).send({
-        message: 'No permission deleting the solution.',
-      });
-    }
+
+    return res.status(403).send({
+      message: 'No permission deleting the solution.',
+    });
   }
   catch(err){
     return res.status(500).send(err);

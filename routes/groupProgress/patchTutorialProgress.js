@@ -17,10 +17,8 @@ const GroupMember = require("../../models/groupMembers");
  *
  * @apiSuccess (Success 200) {String} message `Progress updated successfully.`
  * @apiSuccess (Success 200) {Object} progress The updated progress object
- * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
- * @apiError (On error) {Object} 401 `{"message": "Invalid session."}`
- * @apiError (On error) {Object} 404 `{"message": "Tutorial not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 404 `{"message": "Member not found."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const patchTutorialProgress = async function (req, res) {
   try {

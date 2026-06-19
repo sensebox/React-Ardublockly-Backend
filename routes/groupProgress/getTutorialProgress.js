@@ -5,7 +5,7 @@ const GroupMember = require("../../models/groupMembers");
 /**
  * @api {get} /progress/:groupId/:memberId Get tutorial progress
  * @apiName getTutorialProgress
- * @apiDescription Get the current progress for a student. Uses student session authentication.
+ * @apiDescription Get the current progress for a student.
  * @apiGroup Progress
  *
  * @apiHeader {String} x-pseudo-user-id Student's pseudo user ID
@@ -17,21 +17,20 @@ const GroupMember = require("../../models/groupMembers");
  *
  * @apiSuccess (Success 200) {String} message `Progress updated successfully.`
  * @apiSuccess (Success 200) {Object} progress The updated progress object
- * @apiError (On error) {Object} 400 `{"message": "Missing required fields."}`
- * @apiError (On error) {Object} 401 `{"message": "Invalid session."}`
- * @apiError (On error) {Object} 404 `{"message": "Tutorial not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 400 `{"message": "Missing required parameters."}`
+ * @apiError (On error) {Object} 403 `{"message": "Member does not belong to this group."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getTutorialProgress = async function (req, res) {
   try {
     const { groupId, memberId } = req.params;
 
+    if (!groupId || !memberId) {
+      return res.status(400).send({ message: "Missing required parameters.", groupId, memberId });
+    }
+
     const member = await GroupMember.findById(memberId)
       .populate("tutorialId", "title steps");
-
-    if (!member) {
-      return res.status(404).send({ message: "Member not found." });
-    }
 
     if (member.groupId.toString() !== groupId) {
       return res.status(403).send({ message: "Member does not belong to this group." });

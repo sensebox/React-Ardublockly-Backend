@@ -28,8 +28,9 @@ const User = require("../../models/user");
         "__v": 0
     }`
  *
+ * @apiError (On error) {Object} 400 `{"message": "Missing or invalid group name."}`
  * @apiError (On error) {Object} 403 `{"message": No permission creating the group."}`
- * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const postGroup = async function (req, res) {
   try {
@@ -57,7 +58,7 @@ const postGroup = async function (req, res) {
       group: result,
     });
   } catch (err) {
-    return res.status(500).send({ message: "Server error. GEHT NICHT", error: err.message });
+    return res.status(500).send({ message: "Server error ", error: err.message });
   }
 };
 

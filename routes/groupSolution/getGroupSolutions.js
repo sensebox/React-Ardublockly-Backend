@@ -23,9 +23,7 @@ const Solution = require('../../models/solution');
         "updatedAt": "2020-12-15T12:05:00.662Z",
     }`
  *
- * @apiError (On error) {Object} 403 `{"message": No permission viewing the solution."}`        
- * @apiError (On error) {Object} 404 `{"message": Solution not found."}`
- * @apiError (On error) {Object} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getGroupSolutions = async function(req, res){
   try{
