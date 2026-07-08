@@ -11,6 +11,7 @@ const QuestionSchema = new mongoose.Schema(
     h5plink: String,
     type: String,
     multipleChoice: Boolean,
+    freetext: Boolean,
   },
   { _id: true }
 );
