@@ -69,6 +69,7 @@ const postTutorial = async function (req, res) {
         difficulty: req.body.difficulty,
         learnings: req.body.learnings,
         hardware: req.body.hardware,
+        customHardware: req.body.customHardware,
         public: req.body.public,
         review: req.body.review,
         steps: req.body.steps,

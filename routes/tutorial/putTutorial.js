@@ -74,6 +74,7 @@ const putTutorial = async function (req, res) {
         updatedTutorial.review = req.body.review || oldTutorial.review;
         updatedTutorial.steps = req.body.steps || oldTutorial.steps;
         updatedTutorial.hardware = req.body.hardware || oldTutorial.hardware;
+        updatedTutorial.customHardware = req.body.customHardware || oldTutorial.customHardware;
         updatedTutorial.learnings = req.body.learnings || oldTutorial.learnings;
         updatedTutorial.topics = req.body.topics || oldTutorial.topics;
         updatedTutorial.subjects = req.body.subjects || oldTutorial.subjects;

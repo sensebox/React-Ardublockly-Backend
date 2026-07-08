@@ -91,6 +91,10 @@ const TutorialSchema = new mongoose.Schema(
     hardware: {
       type: [String],
     },
+    customHardware: {
+      type: Object,
+      default: undefined,
+    },
     duration: {
       type: String,
     },
