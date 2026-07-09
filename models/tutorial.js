@@ -11,6 +11,7 @@ const QuestionSchema = new mongoose.Schema(
     h5plink: String,
     type: String,
     multipleChoice: Boolean,
+    freetext: Boolean,
   },
   { _id: true }
 );
@@ -90,6 +91,10 @@ const TutorialSchema = new mongoose.Schema(
     },
     hardware: {
       type: [String],
+    },
+    customHardware: {
+      type: Object,
+      default: undefined,
     },
     duration: {
       type: String,
