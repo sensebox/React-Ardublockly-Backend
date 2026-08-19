@@ -66,20 +66,20 @@ const putTutorial = async function (req, res) {
       var owner = req.user.email;
       if (owner === oldTutorial.creator || req.user.role === "admin") {
         var updatedTutorial = {};
-        updatedTutorial.title = req.body.title || oldTutorial.title;
-        updatedTutorial.subtitle = req.body.subtitle || oldTutorial.subtitle;
+        updatedTutorial.title = req.body.title ?? oldTutorial.title;
+        updatedTutorial.subtitle = req.body.subtitle ?? oldTutorial.subtitle;
         updatedTutorial.difficulty =
-          req.body.difficulty || oldTutorial.difficulty;
-        updatedTutorial.public = req.body.public || oldTutorial.public;
-        updatedTutorial.review = req.body.review || oldTutorial.review;
-        updatedTutorial.steps = req.body.steps || oldTutorial.steps;
-        updatedTutorial.hardware = req.body.hardware || oldTutorial.hardware;
-        updatedTutorial.customHardware = req.body.customHardware || oldTutorial.customHardware;
-        updatedTutorial.learnings = req.body.learnings || oldTutorial.learnings;
-        updatedTutorial.topics = req.body.topics || oldTutorial.topics;
-        updatedTutorial.subjects = req.body.subjects || oldTutorial.subjects;
-        updatedTutorial.year = req.body.year || oldTutorial.year;
-        updatedTutorial.duration = req.body.duration || oldTutorial.duration;
+          req.body.difficulty ?? oldTutorial.difficulty;
+        updatedTutorial.public = req.body.public !== undefined ? req.body.public : oldTutorial.public;
+        updatedTutorial.review = req.body.review !== undefined ? req.body.review : oldTutorial.review;
+        updatedTutorial.steps = req.body.steps ?? oldTutorial.steps;
+        updatedTutorial.hardware = req.body.hardware ?? oldTutorial.hardware;
+        updatedTutorial.customHardware = req.body.customHardware ?? oldTutorial.customHardware;
+        updatedTutorial.learnings = req.body.learnings ?? oldTutorial.learnings;
+        updatedTutorial.topics = req.body.topics ?? oldTutorial.topics;
+        updatedTutorial.subjects = req.body.subjects ?? oldTutorial.subjects;
+        updatedTutorial.year = req.body.year ?? oldTutorial.year;
+        updatedTutorial.duration = req.body.duration ?? oldTutorial.duration;
         // ensure that the requirement is not related to the tutorial itself
         if (updatedTutorial.steps[0].requirements) {
           updatedTutorial.steps[0].requirements =
