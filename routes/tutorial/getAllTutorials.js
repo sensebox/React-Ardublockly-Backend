@@ -44,12 +44,14 @@ const Tutorial = require("../../models/tutorial");
 		}
   ]`
  *
- * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 403 `{"message": "No permission getting all the tutorial."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const getAllTutorials = async function (req, res) {
   try {
     if (req.user.role === "admin") {
-      var result = await Tutorial.find({});
+	const count = await Tutorial.countDocuments();
+      const result = await Tutorial.find({});
       return res.status(200).send({
         message: "Tutorials found successfully.",
         tutorials: result,

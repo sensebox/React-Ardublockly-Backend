@@ -40,6 +40,8 @@ var galleryRouter = require('./routes/gallery/index');
 var projectRouter = require('./routes/project/index');
 var userRouter = require('./routes/user/index');
 var uploadRouter = require('./routes/upload/index');
+var groupRouter = require('./routes/group/index');
+
 
 api.use('/tutorial', tutorialRouter);
 api.use('/share', shareRouter);
@@ -47,6 +49,8 @@ api.use('/gallery', galleryRouter);
 api.use('/project', projectRouter);
 api.use('/user', userRouter);
 api.use('/upload', uploadRouter);
+api.use('/group', groupRouter);
+
 
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {

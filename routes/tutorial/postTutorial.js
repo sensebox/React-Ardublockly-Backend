@@ -50,7 +50,8 @@ const User = require("../../models/user");
 	}`
  *
  * @apiError (On error) {Object} 403 `{"message": No permission creating the tutorial."}`
- * @apiError (On error) {Obejct} 500 Complications during querying the database.
+ * @apiError (On error) {Object} 422 `{"message": "File validation failed."}`
+ * @apiError (On error) {Object} 500 `{"message": "Server error."}`
  */
 const postTutorial = async function (req, res) {
   if (req.fileValidationError) {
