@@ -16,7 +16,18 @@ const QuestionSchema = new mongoose.Schema(
   { _id: true }
 );
 
+const EvaluationSchema = new mongoose.Schema(
+  {
+    id: String,
+    title: String,
+  },
+  { _id: false }
+);
+
 const StepSchema = new mongoose.Schema({
+  id: {
+    type: String,
+  },
   type: {
     type: String,
     enum: [
@@ -27,6 +38,8 @@ const StepSchema = new mongoose.Schema({
       "question",
       "blocklyExample",
       "h5p",
+      "evaluationPreparation",
+      "evaluation",
     ],
     required: true,
   },
@@ -56,6 +69,23 @@ const StepSchema = new mongoose.Schema({
   },
   h5psrc: {
     type: String,
+  },
+  criteriaConfig: {
+    type: {
+      minCriteria: Number,
+      maxCriteria: Number,
+      title: String,
+      subtitle: String,
+    },
+    default: undefined,
+  },
+  evaluationConfig: {
+    type: {
+      sourceStepId: String,
+      evaluations: [EvaluationSchema],
+      allowLearnerEvaluations: Boolean,
+    },
+    default: undefined,
   },
 });
 
