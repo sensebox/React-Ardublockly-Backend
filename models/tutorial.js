@@ -70,6 +70,10 @@ const StepSchema = new mongoose.Schema({
   h5psrc: {
     type: String,
   },
+  board: {
+    type: String,
+    required: false,
+  },
   criteriaConfig: {
     type: {
       minCriteria: Number,
